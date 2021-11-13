@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1045 &1
+EditorBuildSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Scenes:
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 1
+    path: Assets/Scenes/MainPage.unity
+    guid: b5ca376f59db17140bc5c4bc776a9a22
+  - enabled: 1
+    path: Assets/Scenes/MobileTable.unity
+    guid: 8f4eebf047b21d945b6d1b9e584f5653
+  - enabled: 1
+    path: Assets/Scenes/TextsTable.unity
+    guid: 62ab0654c0c207d4eb8bbaaf8487f019
+  - enabled: 1
+    path: Assets/Scenes/ImageTable.unity
+    guid: 98a4915308696414b8909eddd9a643d2
+  m_configObjects: {}
