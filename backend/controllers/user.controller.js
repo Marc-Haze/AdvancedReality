@@ -16,9 +16,10 @@ exports.create = (req, res) => {
 
   // Create a User
   let user = {
-    password: req.body.password,
-    name: req.body.name,
     username: req.body.username,
+    password: req.body.password,
+    mail: req.body.mail,
+    darkmode: req.body.darkmode ? req.body.darkmode : false,
     isAdmin: req.body.isAdmin ? req.body.isAdmin : false
   };
 

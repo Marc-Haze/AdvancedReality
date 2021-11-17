@@ -24,8 +24,8 @@ public class HideAfterSeconds : MonoBehaviour{
         loading3.SetActive(false);
     }
     // Start is called before the first frame update
-    void Start()
-    {
+    void Start(){
+        /*
         if(!firstView){
             loading1.SetActive(true);
             Invoke("hideUI1", 3.5f);
@@ -35,7 +35,7 @@ public class HideAfterSeconds : MonoBehaviour{
         }else{
             loading3.SetActive(true);
             Invoke("hideUI3", 3.5f);
-        }
+        }*/
     }
 
     // Update is called once per frame

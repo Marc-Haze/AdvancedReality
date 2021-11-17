@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 86546720}
   - component: {fileID: 86546719}
   m_Layer: 5
-  m_Name: Text
+  m_Name: txtDelete
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4060,6 +4060,7 @@ MonoBehaviour:
   bkg_update: {fileID: 347037183}
   bkg_delete: {fileID: 1377191378}
   txt_delete: {fileID: 86546717}
+  txt_username: {fileID: 1553739829}
 --- !u!1 &1224502526
 GameObject:
   m_ObjectHideFlags: 0
@@ -4933,7 +4934,7 @@ GameObject:
   - component: {fileID: 1553739832}
   - component: {fileID: 1553739831}
   m_Layer: 5
-  m_Name: Text
+  m_Name: Username
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

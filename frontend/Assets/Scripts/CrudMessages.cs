@@ -28,9 +28,10 @@ public class CrudMessages : MonoBehaviour
 
     public static Boolean Dark = false;
 
-    public GameObject itemParent, item, form_create, form_update, background, bkg_create, bkg_update, bkg_delete, txt_delete;
+    public GameObject itemParent, item, form_create, form_update, background, bkg_create, bkg_update, bkg_delete, txt_delete, txt_username;
 
     void Start(){
+        txt_username.GetComponent<Text>().text = LoginUsers.getUsername();
         Dark=Crud.getDark();
         read();
     }
