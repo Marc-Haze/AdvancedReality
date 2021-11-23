@@ -49,6 +49,17 @@ public class LoginUsers : MonoBehaviour
         isLoggedin();
     }
 
+    public void closeLogin(){
+        form_login.transform.GetChild(1).GetComponent<InputField>().text = "";
+        form_login.transform.GetChild(2).GetComponent<InputField>().text = "";
+        form_login.SetActive(false);
+        login_error.SetActive(false);
+        register_error.SetActive(false);
+        form_register.transform.GetChild(1).GetComponent<InputField>().text = "";
+        form_register.transform.GetChild(2).GetComponent<InputField>().text = "";
+        form_register.SetActive(false);
+    }
+
     public async void login()
     {
         if (form_login.transform.GetChild(1).GetComponent<InputField>().text == "")
