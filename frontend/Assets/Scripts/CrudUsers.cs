@@ -11,14 +11,18 @@ using Newtonsoft.Json;
 
 public class CrudUsers : MonoBehaviour
 {
-
+    public class SendToken
+    {
+        public string token { get; set; }
+    }
     public class UserModel
     {
         public int id { get; set; }
-        public string password { get; set; }
-        public string name { get; set; }
         public string username { get; set; }
-        public byte isAdmin { get; set; }
+        public string password { get; set; }
+        public string mail { get; set; }
+        public bool darkmode { get; set; }
+        public bool isAdmin { get; set; }
         public DateTime createdAt { get; set; }
         public DateTime updatedAt { get; set; }
     }
@@ -28,132 +32,188 @@ public class CrudUsers : MonoBehaviour
     public static string idUpdate;
     public static string idDelete;
 
-    public static Boolean Dark=false;
+    public static Boolean Dark = false;
 
-    public static Boolean getDark(){ return Dark; }
-    public static void setDark(Boolean valueDark){ Dark=valueDark; }
+    public static Boolean getDark() { return Dark; }
+    public static void setDark(Boolean valueDark) { Dark = valueDark; }
 
-    public GameObject itemParent, item, form_create, form_update, background, bkg_create, bkg_update, bkg_delete, txt_delete;
+    public GameObject itemParent, item, form_create, form_update, background, bkg_create, bkg_update, bkg_delete, txt_delete, txt_username;
 
     void Start()
     {
+        txt_username.GetComponent<Text>().text = LoginUsers.getUsername();
+        Dark = Crud.getDark();
         read();
     }
 
-    public async void read(){
-        if (Dark){
-            /*background.GetComponent<Image>().color = new Color32(52,52,55,255);
-            bkg_create.GetComponent<Image>().color = new Color32(52,52,55,255);
-            bkg_update.GetComponent<Image>().color = new Color32(52,52,55,255);
-            bkg_delete.GetComponent<Image>().color = new Color32(52,52,55,255);
+    public async void read()
+    {
+        if (Dark)
+        {
+            background.GetComponent<Image>().color = new Color32(52, 52, 55, 255);
+            bkg_create.GetComponent<Image>().color = new Color32(52, 52, 55, 255);
+            bkg_update.GetComponent<Image>().color = new Color32(52, 52, 55, 255);
+            bkg_delete.GetComponent<Image>().color = new Color32(52, 52, 55, 255);
             txt_delete.GetComponent<Text>().color = Color.white;
 
-            for (int i = 0; i < itemParent.transform.childCount; i++){
+            for (int i = 0; i < itemParent.transform.childCount; i++)
+            {
                 Destroy(itemParent.transform.GetChild(i).gameObject);
             }
+
+            var sendToken = new SendToken();
+            sendToken.token = LoginUsers.getToken();
+            //Debug.Log(sendToken.token);
             using var client = new HttpClient();
-            content = await client.GetStringAsync("http://localhost:4000/api/users");
-            contentArray = JsonConvert.DeserializeObject<List<UserModel>>(content);
-            foreach (UserModel model in contentArray){
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", sendToken.token);
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            HttpResponseMessage response = await client.GetAsync("http://localhost:4000/api/users");
+            var responseString = await response.Content.ReadAsStringAsync();
+            //Debug.Log(responseString);
+            contentArray = JsonConvert.DeserializeObject<List<UserModel>>(responseString);
+
+            foreach (UserModel model in contentArray)
+            {
                 GameObject tmp_item = Instantiate(item, itemParent.transform);
                 tmp_item.transform.GetChild(0).GetComponent<Text>().color = Color.white;
                 tmp_item.transform.GetChild(0).GetComponent<Text>().text = model.id.ToString();
                 tmp_item.transform.GetChild(1).GetComponent<Text>().color = Color.white;
-                tmp_item.transform.GetChild(1).GetComponent<Text>().text = model.name;
+                tmp_item.transform.GetChild(1).GetComponent<Text>().text = model.username;
                 tmp_item.transform.GetChild(2).GetComponent<Text>().color = Color.white;
-                tmp_item.transform.GetChild(2).GetComponent<Text>().text = model.fileName;
+                tmp_item.transform.GetChild(2).GetComponent<Text>().text = model.password;
                 tmp_item.transform.GetChild(3).GetComponent<Text>().color = Color.white;
-                tmp_item.transform.GetChild(3).GetComponent<Text>().text = model.description;
-            }*/
-        }else{
-            /*
-            background.GetComponent<Image>().color = new Color32(255,255,255,255);
-            bkg_create.GetComponent<Image>().color = new Color32(255,255,255,255);
-            bkg_update.GetComponent<Image>().color = new Color32(255,255,255,255);
-            bkg_delete.GetComponent<Image>().color = new Color32(255,255,255,255);
-            txt_delete.GetComponent<Text>().color = Color.black;*/
-       
-            for (int i = 0; i < itemParent.transform.childCount; i++){
+                tmp_item.transform.GetChild(3).GetComponent<Text>().text = model.mail;
+                tmp_item.transform.GetChild(4).GetComponent<Text>().color = Color.white;
+                tmp_item.transform.GetChild(4).GetComponent<Text>().text = model.darkmode.ToString();
+            }
+        }
+        else
+        {
+            background.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
+            bkg_create.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
+            bkg_update.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
+            bkg_delete.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
+            txt_delete.GetComponent<Text>().color = Color.black;
+            for (int i = 0; i < itemParent.transform.childCount; i++)
+            {
                 Destroy(itemParent.transform.GetChild(i).gameObject);
             }
+            var sendToken = new SendToken();
+            sendToken.token = LoginUsers.getToken();
+            //Debug.Log(sendToken.token);
             using var client = new HttpClient();
-            content = await client.GetStringAsync("http://localhost:4000/api/users");
-            contentArray = JsonConvert.DeserializeObject<List<UserModel>>(content);
-            foreach (UserModel model in contentArray){
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", sendToken.token);
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            HttpResponseMessage response = await client.GetAsync("http://localhost:4000/api/users");
+            var responseString = await response.Content.ReadAsStringAsync();
+            //Debug.Log(responseString);
+            contentArray = JsonConvert.DeserializeObject<List<UserModel>>(responseString);
+            foreach (UserModel model in contentArray)
+            {
                 GameObject tmp_item = Instantiate(item, itemParent.transform);
                 tmp_item.transform.GetChild(0).GetComponent<Text>().color = Color.black;
                 tmp_item.transform.GetChild(0).GetComponent<Text>().text = model.id.ToString();
                 tmp_item.transform.GetChild(1).GetComponent<Text>().color = Color.black;
-                tmp_item.transform.GetChild(1).GetComponent<Text>().text = model.password;
+                tmp_item.transform.GetChild(1).GetComponent<Text>().text = model.username;
                 tmp_item.transform.GetChild(2).GetComponent<Text>().color = Color.black;
-                tmp_item.transform.GetChild(2).GetComponent<Text>().text = model.name;
+                tmp_item.transform.GetChild(2).GetComponent<Text>().text = model.password;
                 tmp_item.transform.GetChild(3).GetComponent<Text>().color = Color.black;
-                tmp_item.transform.GetChild(3).GetComponent<Text>().text = model.username;
+                tmp_item.transform.GetChild(3).GetComponent<Text>().text = model.mail;
+                tmp_item.transform.GetChild(4).GetComponent<Text>().color = Color.black;
+                tmp_item.transform.GetChild(4).GetComponent<Text>().text = model.darkmode.ToString();
             }
         }
     }
 
-    public void changeDarkness(){
-        if(Dark){
-            Dark=false;
+    public void changeDarkness()
+    {
+        if (Dark)
+        {
+            Dark = false;
+            Crud.setDark(Dark);
             read();
-        }else{
-            Dark=true;
+        }
+        else
+        {
+            Dark = true;
+            Crud.setDark(Dark);
             read();
         }
     }
-/*
-    public async void create(){
-        var image = new ImageModel();
-        image.name = form_create.transform.GetChild(1).GetComponent<InputField>().text;
-        image.fileName = form_create.transform.GetChild(2).GetComponent<InputField>().text;
-        image.description = form_create.transform.GetChild(3).GetComponent<InputField>().text;
-        var json = JsonConvert.SerializeObject(image);
+
+    public async void create()
+    {
+        var sendToken = new SendToken();
+        sendToken.token = LoginUsers.getToken();
+        var user = new UserModel();
+        user.username = form_create.transform.GetChild(1).GetComponent<InputField>().text;
+        user.password = form_create.transform.GetChild(2).GetComponent<InputField>().text;
+        user.mail = form_create.transform.GetChild(3).GetComponent<InputField>().text;
+        var byteArray = System.Text.Encoding.UTF8.GetBytes($"{user.username}:{user.password}");
+        string encodedText = Convert.ToBase64String(byteArray);
+        var json = JsonConvert.SerializeObject(user);
         var data = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
         using var client = new HttpClient();
-        HttpResponseMessage response = await client.PostAsync("http://localhost:4000/api/images", data);
+        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", encodedText);
+        client.DefaultRequestHeaders
+        .Accept
+        .Add(new MediaTypeWithQualityHeaderValue("application/x-www-form-urlencoded"));
+        HttpResponseMessage response = await client.PostAsync("http://localhost:4000/api/users", data);
+        var responseString = await response.Content.ReadAsStringAsync();
+        //Debug.Log(responseString);
         form_create.transform.GetChild(1).GetComponent<InputField>().text = "";
         form_create.transform.GetChild(2).GetComponent<InputField>().text = "";
         form_create.transform.GetChild(3).GetComponent<InputField>().text = "";
         read();
     }
 
-    public void get_id_delete(GameObject obj_delete){
+    public void get_id_delete(GameObject obj_delete)
+    {
         idDelete = obj_delete.transform.GetChild(0).GetComponent<Text>().text;
     }
 
-    public async void delete(GameObject item){
+    public async void delete(GameObject item)
+    {
+        var sendToken = new SendToken();
+        sendToken.token = LoginUsers.getToken();
         using var client = new HttpClient();
-        HttpResponseMessage response = await client.DeleteAsync("http://localhost:4000/api/images/" + idDelete);
+        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", sendToken.token);
+        client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+        HttpResponseMessage response = await client.DeleteAsync("http://localhost:4000/api/users/" + idDelete);
         read();
     }
+    
+        string id_update;
 
-    string id_update;
+        public void open_form_update(GameObject obj_update){
+            form_update.SetActive(true);
+            form_update.transform.GetChild(1).GetComponent<InputField>().text = obj_update.transform.GetChild(1).GetComponent<Text>().text;
+            form_update.transform.GetChild(2).GetComponent<InputField>().text = "new";
+            form_update.transform.GetChild(3).GetComponent<InputField>().text = obj_update.transform.GetChild(3).GetComponent<Text>().text;
+            idUpdate = obj_update.transform.GetChild(0).GetComponent<Text>().text;
+        }
 
-    public void open_form_update(GameObject obj_update){
-        form_update.SetActive(true);
-        form_update.transform.GetChild(1).GetComponent<InputField>().text = obj_update.transform.GetChild(1).GetComponent<Text>().text;
-        form_update.transform.GetChild(2).GetComponent<InputField>().text = obj_update.transform.GetChild(2).GetComponent<Text>().text;
-        form_update.transform.GetChild(3).GetComponent<InputField>().text = obj_update.transform.GetChild(3).GetComponent<Text>().text;
-        idUpdate = obj_update.transform.GetChild(0).GetComponent<Text>().text;
-    }
+        public async void update(){
+            var sendToken = new SendToken();
+            sendToken.token = LoginUsers.getToken();
+            var userUpdate = new UserModel();
+            userUpdate.id= int.Parse(idUpdate);
+            userUpdate.username = form_update.transform.GetChild(1).GetComponent<InputField>().text;
+            userUpdate.password = form_update.transform.GetChild(2).GetComponent<InputField>().text;
+            userUpdate.mail = form_update.transform.GetChild(3).GetComponent<InputField>().text;
+            var json = JsonConvert.SerializeObject(userUpdate);
+            var updateData = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
 
-    public async void update(){
-        var imageUpdate = new ImageModel();
-        imageUpdate.id = int.Parse(idUpdate);
-        imageUpdate.name = form_update.transform.GetChild(1).GetComponent<InputField>().text;
-        imageUpdate.fileName = form_update.transform.GetChild(2).GetComponent<InputField>().text;
-        imageUpdate.description = form_update.transform.GetChild(3).GetComponent<InputField>().text;
-        var json = JsonConvert.SerializeObject(imageUpdate);
-        var updateData = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
-
-        using var client = new HttpClient();
-        HttpResponseMessage response = await client.PutAsync("http://localhost:4000/api/images/" + idUpdate, updateData);
-        read();
-    }*/
+            using var client = new HttpClient();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", sendToken.token);
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            HttpResponseMessage response = await client.PutAsync("http://localhost:4000/api/users/" + idUpdate, updateData);
+            read();
+        }
 
     // Update is called once per frame
-    void Update(){
+    void Update()
+    {
 
     }
 }

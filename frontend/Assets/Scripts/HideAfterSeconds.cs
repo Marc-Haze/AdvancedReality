@@ -10,7 +10,7 @@ using UnityEngine.UI;
 using Newtonsoft.Json;
 
 public class HideAfterSeconds : MonoBehaviour{
-    public GameObject loading1,loading2,loading3;
+    public GameObject loading1,loading2,bckg1,bckg2,bckg3;
 
     public static Boolean firstView=false;
     void hideUI1(){
@@ -19,23 +19,35 @@ public class HideAfterSeconds : MonoBehaviour{
     void hideUI2(){
         loading2.SetActive(false);
     }
-
-    void hideUI3(){
-        loading3.SetActive(false);
+    void hideBckg1(){
+        bckg1.SetActive(true);
     }
+    void hideBckg2(){
+        bckg2.SetActive(false);
+    }
+    void hideBckg3(){
+        bckg3.SetActive(false);
+    }
+
     // Start is called before the first frame update
-    void Start(){
-        /*
+    async void Start(){
+        /* */
         if(!firstView){
             loading1.SetActive(true);
             Invoke("hideUI1", 3.5f);
             loading2.SetActive(true);
             Invoke("hideUI2", 5.5f);
             firstView=true;
-        }else{
-            loading3.SetActive(true);
-            Invoke("hideUI3", 3.5f);
-        }*/
+        }
+        while(true){
+            bckg1.SetActive(true);
+            Invoke("hideBckg1", 10f);
+            bckg2.SetActive(true);
+            Invoke("hideBckg2", 20f);
+            bckg3.SetActive(true);
+            Invoke("hideBckg3", 30f);
+            await Task.Delay(25000);
+        }
     }
 
     // Update is called once per frame

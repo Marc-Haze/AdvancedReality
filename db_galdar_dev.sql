@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 17-11-2021 a las 18:47:29
+-- Tiempo de generación: 23-11-2021 a las 16:03:11
 -- Versión del servidor: 10.4.19-MariaDB
 -- Versión de PHP: 8.0.6
 
@@ -64,6 +64,13 @@ CREATE TABLE `reviews` (
   `updatedAt` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Volcado de datos para la tabla `reviews`
+--
+
+INSERT INTO `reviews` (`id`, `content`, `mail`, `target`, `userId`, `createdAt`, `updatedAt`) VALUES
+(4, 'Ejemplo de review', 'asoret@gmail.com', 'maspalomas', NULL, '0001-01-01 01:01:36', '2021-11-22 19:30:10');
+
 -- --------------------------------------------------------
 
 --
@@ -110,7 +117,8 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `username`, `password`, `mail`, `darkmode`, `isAdmin`, `createdAt`, `updatedAt`) VALUES
 (4, 'asoret', '$2a$10$OO2gCH221AqaGEaW/8Bk/u0czFBa9zyLyUABUje2O.APCTcdcTicS', 'asoret@email.com', 0, 1, '2021-10-21 15:21:03', '2021-10-21 15:21:03'),
-(7, 'example', '$2a$10$YPrFQmW3JFyf8cXFW4pveO.L0H16jp.829S1zV/bYnluS1dp6HEnu', 'example@gmail.com', 0, 0, '2021-11-17 17:30:21', '2021-11-17 17:30:21');
+(8, 'admin', '$2a$10$qHcxqwAceaf66afvBAC5EO8CzzYoPlpRIrgfLcFUPmwYsIk6YQaLi', 'admin@admin.com', 0, 1, '2021-11-17 18:33:59', '2021-11-17 18:33:59'),
+(13, 'another', '$2a$10$za5ZbhtZPnFN.eWEe3FPXuS642LYztzOy6O/T4cwiuourT7z2TC1m', 'another@gmail.com', 0, 0, '0001-01-01 01:01:36', '2021-11-22 17:49:45');
 
 --
 -- Índices para tablas volcadas
@@ -156,7 +164,7 @@ ALTER TABLE `images`
 -- AUTO_INCREMENT de la tabla `reviews`
 --
 ALTER TABLE `reviews`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `texts`
@@ -168,7 +176,7 @@ ALTER TABLE `texts`
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- Restricciones para tablas volcadas

@@ -107,7 +107,6 @@ public class CrudMessages : MonoBehaviour
         form_create.transform.GetChild(1).GetComponent<InputField>().text = "";
         form_create.transform.GetChild(2).GetComponent<InputField>().text = "";
         read();
-        Debug.Log("done");
     }
 
     public void get_id_delete(GameObject obj_delete){
