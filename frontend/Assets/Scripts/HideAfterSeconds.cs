@@ -13,6 +13,14 @@ public class HideAfterSeconds : MonoBehaviour{
     public GameObject loading1,loading2,bckg1,bckg2,bckg3;
 
     public static Boolean firstView=false;
+    public static Boolean Viewing=true;
+
+    public static Boolean getViewing(){
+        return Viewing;
+    }
+    public static void setViewing(Boolean view){
+        Viewing=view;
+    }
     void hideUI1(){
         loading1.SetActive(false);
     }
@@ -39,7 +47,7 @@ public class HideAfterSeconds : MonoBehaviour{
             Invoke("hideUI2", 5.5f);
             firstView=true;
         }
-        while(true){
+        while(Viewing){
             bckg1.SetActive(true);
             Invoke("hideBckg1", 10f);
             bckg2.SetActive(true);

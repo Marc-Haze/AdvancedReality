@@ -8,7 +8,14 @@ using UnityEngine.Events; // This is so that you can extend the pointer handlers
 using UnityEngine.EventSystems;
 public class ChangeScene : MonoBehaviour{
     public void changeScene(string scenename){
-        SceneManager.LoadScene(scenename);
+        if(scenename=="MainPage"){
+            SceneManager.LoadScene(scenename);
+            HideAfterSeconds.setViewing(true);
+        }else{
+            SceneManager.LoadScene(scenename);
+            HideAfterSeconds.setViewing(false);
+        }
+        
     }
     public void lightFont(PointerEventData eventData) {
           GetComponent<Text>().color = Color.white; 
