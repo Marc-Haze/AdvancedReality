@@ -7,6 +7,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Networking;
 using Newtonsoft.Json;
 
 public class CrudComments : MonoBehaviour
@@ -36,8 +37,10 @@ public class CrudComments : MonoBehaviour
         Dark=Crud.getDark();
         read();
     }
-
-    public async void read(){
+    public void read(){
+        StartCoroutine(readI());
+    }
+    IEnumerator readI(){
         if (Dark){
             background.GetComponent<Image>().color = new Color32(52,52,55,255);
             bkg_create.GetComponent<Image>().color = new Color32(52,52,55,255);
@@ -48,9 +51,12 @@ public class CrudComments : MonoBehaviour
             for (int i = 0; i < itemParent.transform.childCount; i++){
                 Destroy(itemParent.transform.GetChild(i).gameObject);
             }
-            using var client = new HttpClient();
-            content = await client.GetStringAsync("http://localhost:4000/api/reviews");
-            contentArray = JsonConvert.DeserializeObject<List<ReviewModel>>(content);
+            /*using var client = new HttpClient();
+            content = await client.GetStringAsync("http://localhost:4000/api/reviews");*/
+            UnityWebRequest request = new UnityWebRequest("http://localhost:4000/api/reviews", "GET");
+            request.downloadHandler = new DownloadHandlerBuffer();
+            yield return request.SendWebRequest();
+            contentArray = JsonConvert.DeserializeObject<List<ReviewModel>>(request.downloadHandler.text);
             foreach (ReviewModel model in contentArray){
                 GameObject tmp_item = Instantiate(item, itemParent.transform);
                 tmp_item.transform.GetChild(0).GetComponent<Text>().color = Color.white;
@@ -72,9 +78,12 @@ public class CrudComments : MonoBehaviour
             for (int i = 0; i < itemParent.transform.childCount; i++){
                 Destroy(itemParent.transform.GetChild(i).gameObject);
             }
-            using var client = new HttpClient();
-            content = await client.GetStringAsync("http://localhost:4000/api/reviews");
-            contentArray = JsonConvert.DeserializeObject<List<ReviewModel>>(content);
+            /*using var client = new HttpClient();
+            content = await client.GetStringAsync("http://localhost:4000/api/reviews");*/
+            UnityWebRequest request = new UnityWebRequest("http://localhost:4000/api/reviews", "GET");
+            request.downloadHandler = new DownloadHandlerBuffer();
+            yield return request.SendWebRequest();
+            contentArray = JsonConvert.DeserializeObject<List<ReviewModel>>(request.downloadHandler.text);
             foreach (ReviewModel model in contentArray){
                 GameObject tmp_item = Instantiate(item, itemParent.transform);
                 tmp_item.transform.GetChild(0).GetComponent<Text>().color = Color.black;
@@ -100,18 +109,27 @@ public class CrudComments : MonoBehaviour
             read();
         }
     }
-
-    public async void create(){
+    public void create(){
+        StartCoroutine(createI());
+    }
+    IEnumerator createI(){
         var review = new ReviewModel();
         review.content = form_create.transform.GetChild(1).GetComponent<InputField>().text;
         review.mail = form_create.transform.GetChild(2).GetComponent<InputField>().text;
         review.target = form_create.transform.GetChild(3).GetComponent<InputField>().text;
-        Debug.Log(review.content + " " + review.mail + " " + review.target);
-        var json = JsonConvert.SerializeObject(review);
+        WWWForm form = new WWWForm();
+        form.AddField("content", review.content);
+        form.AddField("mail", review.mail);
+        form.AddField("target", review.target);
+        UnityWebRequest request = UnityWebRequest.Post("http://localhost:4000/api/reviews",form);
+        request.SetRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        request.downloadHandler = new DownloadHandlerBuffer();
+        yield return request.SendWebRequest();
+        /*var json = JsonConvert.SerializeObject(review);
         var data = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
         using var client = new HttpClient();
         HttpResponseMessage response = await client.PostAsync("http://localhost:4000/api/reviews", data);
-        var responseString = await response.Content.ReadAsStringAsync();
+        var responseString = await response.Content.ReadAsStringAsync();*/
         //Debug.Log(responseString);
         form_create.transform.GetChild(1).GetComponent<InputField>().text = "";
         form_create.transform.GetChild(2).GetComponent<InputField>().text = "";
@@ -122,10 +140,15 @@ public class CrudComments : MonoBehaviour
     public void get_id_delete(GameObject obj_delete){
         idDelete = obj_delete.transform.GetChild(0).GetComponent<Text>().text;
     }
-
-    public async void delete(GameObject item){
-        using var client = new HttpClient();
-        HttpResponseMessage response = await client.DeleteAsync("http://localhost:4000/api/reviews/" + idDelete);
+    public void delete(){
+        StartCoroutine(deleteI());
+    }
+    IEnumerator deleteI(){
+        /*using var client = new HttpClient();
+        HttpResponseMessage response = await client.DeleteAsync("http://localhost:4000/api/reviews/" + idDelete);*/
+        UnityWebRequest request=UnityWebRequest.Delete("http://localhost:4000/api/reviews/" + idDelete);
+        request.downloadHandler = new DownloadHandlerBuffer();
+        yield return request.SendWebRequest();
         read();
     }
 
@@ -138,18 +161,24 @@ public class CrudComments : MonoBehaviour
         form_update.transform.GetChild(3).GetComponent<InputField>().text = obj_update.transform.GetChild(3).GetComponent<Text>().text;
         idUpdate = obj_update.transform.GetChild(0).GetComponent<Text>().text;
     }
-
-    public async void update(){
+    public void update(){
+        StartCoroutine(updateI());
+    }
+    IEnumerator updateI(){
         var reviewUpdate = new ReviewModel();
         reviewUpdate.id = int.Parse(idUpdate);
         reviewUpdate.content = form_update.transform.GetChild(1).GetComponent<InputField>().text;
         reviewUpdate.mail = form_update.transform.GetChild(2).GetComponent<InputField>().text;
         reviewUpdate.target = form_update.transform.GetChild(3).GetComponent<InputField>().text;
         var json = JsonConvert.SerializeObject(reviewUpdate);
-        var updateData = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
-
-        using var client = new HttpClient();
-        HttpResponseMessage response = await client.PutAsync("http://localhost:4000/api/reviews/" + idUpdate, updateData);
+        //var updateData = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
+        var byteArray = System.Text.Encoding.UTF8.GetBytes(json);
+        UnityWebRequest request = UnityWebRequest.Put("http://localhost:4000/api/reviews/"+idUpdate,byteArray);
+        request.SetRequestHeader("Content-Type", "application/json");
+        request.downloadHandler = new DownloadHandlerBuffer();
+        yield return request.SendWebRequest();
+        /*using var client = new HttpClient();
+        HttpResponseMessage response = await client.PutAsync("http://localhost:4000/api/reviews/" + idUpdate, updateData);*/
         read();
     }
 

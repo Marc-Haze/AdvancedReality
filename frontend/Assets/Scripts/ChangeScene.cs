@@ -22,10 +22,11 @@ public class ChangeScene : MonoBehaviour
         GetComponent<Text>().color = Color.black;
     }
 
-    private int lastWidth= 0;
-    private int lastHeight= 0;
+    //private int lastWidth= 0;
+    //private int lastHeight= 0;
     void Update()
     {
+        /*
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             Application.Quit();
@@ -49,5 +50,6 @@ public class ChangeScene : MonoBehaviour
 
         lastWidth = width;
         lastHeight = height;
+        */
     }
 }

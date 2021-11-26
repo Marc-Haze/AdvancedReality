@@ -7,6 +7,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Networking;
 using Newtonsoft.Json;
 
 public class CrudUsers : MonoBehaviour
@@ -46,7 +47,11 @@ public class CrudUsers : MonoBehaviour
         read();
     }
 
-    public async void read()
+    public void read()
+    {
+        StartCoroutine(readI());
+    }
+    IEnumerator readI()
     {
         if (Dark)
         {
@@ -60,18 +65,20 @@ public class CrudUsers : MonoBehaviour
             {
                 Destroy(itemParent.transform.GetChild(i).gameObject);
             }
-
             var sendToken = new SendToken();
             sendToken.token = LoginUsers.getToken();
             //Debug.Log(sendToken.token);
-            using var client = new HttpClient();
+            /*using var client = new HttpClient();
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", sendToken.token);
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             HttpResponseMessage response = await client.GetAsync("http://localhost:4000/api/users");
-            var responseString = await response.Content.ReadAsStringAsync();
+            var responseString = await response.Content.ReadAsStringAsync();*/
             //Debug.Log(responseString);
-            contentArray = JsonConvert.DeserializeObject<List<UserModel>>(responseString);
-
+            UnityWebRequest request = new UnityWebRequest("http://localhost:4000/api/users", "GET");
+            request.downloadHandler = new DownloadHandlerBuffer();
+            request.SetRequestHeader("Authorization", "Bearer " + sendToken.token);
+            yield return request.SendWebRequest();
+            contentArray = JsonConvert.DeserializeObject<List<UserModel>>(request.downloadHandler.text);
             foreach (UserModel model in contentArray)
             {
                 GameObject tmp_item = Instantiate(item, itemParent.transform);
@@ -101,13 +108,17 @@ public class CrudUsers : MonoBehaviour
             var sendToken = new SendToken();
             sendToken.token = LoginUsers.getToken();
             //Debug.Log(sendToken.token);
-            using var client = new HttpClient();
+            /*using var client = new HttpClient();
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", sendToken.token);
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             HttpResponseMessage response = await client.GetAsync("http://localhost:4000/api/users");
-            var responseString = await response.Content.ReadAsStringAsync();
+            var responseString = await response.Content.ReadAsStringAsync();*/
             //Debug.Log(responseString);
-            contentArray = JsonConvert.DeserializeObject<List<UserModel>>(responseString);
+            UnityWebRequest request = new UnityWebRequest("http://localhost:4000/api/users", "GET");
+            request.downloadHandler = new DownloadHandlerBuffer();
+            request.SetRequestHeader("Authorization", "Bearer " + sendToken.token);
+            yield return request.SendWebRequest();
+            contentArray = JsonConvert.DeserializeObject<List<UserModel>>(request.downloadHandler.text);
             foreach (UserModel model in contentArray)
             {
                 GameObject tmp_item = Instantiate(item, itemParent.transform);
@@ -140,8 +151,11 @@ public class CrudUsers : MonoBehaviour
             read();
         }
     }
-
-    public async void create()
+    public void create()
+    {
+        StartCoroutine(createI());
+    }
+    IEnumerator createI()
     {
         var sendToken = new SendToken();
         sendToken.token = LoginUsers.getToken();
@@ -149,7 +163,17 @@ public class CrudUsers : MonoBehaviour
         user.username = form_create.transform.GetChild(1).GetComponent<InputField>().text;
         user.password = form_create.transform.GetChild(2).GetComponent<InputField>().text;
         user.mail = form_create.transform.GetChild(3).GetComponent<InputField>().text;
-        var byteArray = System.Text.Encoding.UTF8.GetBytes($"{user.username}:{user.password}");
+        WWWForm form = new WWWForm();
+        form.AddField("username", user.username);
+        form.AddField("password", user.password);
+        form.AddField("mail", user.mail);
+        UnityWebRequest request = UnityWebRequest.Post("http://localhost:4000/api/users", form);
+        request.downloadHandler = new DownloadHandlerBuffer();
+        request.SetRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        yield return request.SendWebRequest();
+        Debug.Log(request.downloadHandler.text);
+
+        /*var byteArray = System.Text.Encoding.UTF8.GetBytes($"{user.username}:{user.password}");
         string encodedText = Convert.ToBase64String(byteArray);
         var json = JsonConvert.SerializeObject(user);
         var data = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
@@ -159,7 +183,7 @@ public class CrudUsers : MonoBehaviour
         .Accept
         .Add(new MediaTypeWithQualityHeaderValue("application/x-www-form-urlencoded"));
         HttpResponseMessage response = await client.PostAsync("http://localhost:4000/api/users", data);
-        var responseString = await response.Content.ReadAsStringAsync();
+        var responseString = await response.Content.ReadAsStringAsync();*/
         //Debug.Log(responseString);
         form_create.transform.GetChild(1).GetComponent<InputField>().text = "";
         form_create.transform.GetChild(2).GetComponent<InputField>().text = "";
@@ -171,45 +195,61 @@ public class CrudUsers : MonoBehaviour
     {
         idDelete = obj_delete.transform.GetChild(0).GetComponent<Text>().text;
     }
-
-    public async void delete(GameObject item)
+    public void delete(){
+        StartCoroutine(deleteI());
+    }
+    IEnumerator deleteI()
     {
         var sendToken = new SendToken();
         sendToken.token = LoginUsers.getToken();
-        using var client = new HttpClient();
+        UnityWebRequest request=UnityWebRequest.Delete("http://localhost:4000/api/users/" + idDelete);
+        request.SetRequestHeader("Content-Type", "application/json");
+        request.SetRequestHeader("Authorization", "Bearer " + sendToken.token);
+        request.downloadHandler = new DownloadHandlerBuffer();
+        yield return request.SendWebRequest();
+        /*using var client = new HttpClient();
         client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", sendToken.token);
         client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-        HttpResponseMessage response = await client.DeleteAsync("http://localhost:4000/api/users/" + idDelete);
+        HttpResponseMessage response = await client.DeleteAsync("http://localhost:4000/api/users/" + idDelete);*/
         read();
     }
-    
-        string id_update;
 
-        public void open_form_update(GameObject obj_update){
-            form_update.SetActive(true);
-            form_update.transform.GetChild(1).GetComponent<InputField>().text = obj_update.transform.GetChild(1).GetComponent<Text>().text;
-            form_update.transform.GetChild(2).GetComponent<InputField>().text = "new";
-            form_update.transform.GetChild(3).GetComponent<InputField>().text = obj_update.transform.GetChild(3).GetComponent<Text>().text;
-            idUpdate = obj_update.transform.GetChild(0).GetComponent<Text>().text;
-        }
+    string id_update;
 
-        public async void update(){
-            var sendToken = new SendToken();
-            sendToken.token = LoginUsers.getToken();
-            var userUpdate = new UserModel();
-            userUpdate.id= int.Parse(idUpdate);
-            userUpdate.username = form_update.transform.GetChild(1).GetComponent<InputField>().text;
-            userUpdate.password = form_update.transform.GetChild(2).GetComponent<InputField>().text;
-            userUpdate.mail = form_update.transform.GetChild(3).GetComponent<InputField>().text;
-            var json = JsonConvert.SerializeObject(userUpdate);
-            var updateData = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
-
-            using var client = new HttpClient();
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", sendToken.token);
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            HttpResponseMessage response = await client.PutAsync("http://localhost:4000/api/users/" + idUpdate, updateData);
-            read();
-        }
+    public void open_form_update(GameObject obj_update)
+    {
+        form_update.SetActive(true);
+        form_update.transform.GetChild(1).GetComponent<InputField>().text = obj_update.transform.GetChild(1).GetComponent<Text>().text;
+        form_update.transform.GetChild(2).GetComponent<InputField>().text = "new";
+        form_update.transform.GetChild(3).GetComponent<InputField>().text = obj_update.transform.GetChild(3).GetComponent<Text>().text;
+        idUpdate = obj_update.transform.GetChild(0).GetComponent<Text>().text;
+    }
+    public void update(){
+        StartCoroutine(updateI());
+    }
+    IEnumerator updateI()
+    {
+        var sendToken = new SendToken();
+        sendToken.token = LoginUsers.getToken();
+        var userUpdate = new UserModel();
+        userUpdate.id = int.Parse(idUpdate);
+        userUpdate.username = form_update.transform.GetChild(1).GetComponent<InputField>().text;
+        userUpdate.password = form_update.transform.GetChild(2).GetComponent<InputField>().text;
+        userUpdate.mail = form_update.transform.GetChild(3).GetComponent<InputField>().text;
+        var json = JsonConvert.SerializeObject(userUpdate);
+        //var updateData = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
+        var byteArray = System.Text.Encoding.UTF8.GetBytes(json);
+        UnityWebRequest request = UnityWebRequest.Put("http://localhost:4000/api/users/"+idUpdate,byteArray);
+        request.SetRequestHeader("Content-Type", "application/json");
+        request.SetRequestHeader("Authorization", "Bearer " + sendToken.token);
+        request.downloadHandler = new DownloadHandlerBuffer();
+        yield return request.SendWebRequest();
+        /*using var client = new HttpClient();
+        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", sendToken.token);
+        client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+        HttpResponseMessage response = await client.PutAsync("http://localhost:4000/api/users/" + idUpdate, updateData);*/
+        read();
+    }
 
     // Update is called once per frame
     void Update()

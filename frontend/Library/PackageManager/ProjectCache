@@ -5,27 +5,27 @@ m_ProjectFiles:
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 637732847831665312
-    m_Hash: 4013632333
+      ticks: 637734598541010841
+    m_Hash: 850262720
   m_LockFileStatus:
     m_FilePath: D:/Unity files/projects/frontend/Packages/packages-lock.json
     m_PathExists: 1
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 637732847832298955
-    m_Hash: 3202190540
+      ticks: 637734598746478777
+    m_Hash: 1391493538
 m_EmbeddedPackageManifests:
   m_ManifestsStatus: {}
 m_PackageAssets:
   m_Packages:
     m_ResolvedPackages:
-    - packageId: com.unity.2d.animation@5.0.8
+    - packageId: com.unity.2d.animation@5.0.9
       testable: 0
       isDirectDependency: 1
-      version: 5.0.8
+      version: 5.0.9
       source: 1
-      resolvedPath: D:\Unity files\projects\frontend\Library\PackageCache\com.unity.2d.animation@5.0.8
+      resolvedPath: D:\Unity files\projects\frontend\Library\PackageCache\com.unity.2d.animation@5.0.9
       assetPath: Packages/com.unity.2d.animation
       name: com.unity.2d.animation
       displayName: 2D Animation
@@ -116,7 +116,6 @@ m_PackageAssets:
         - 7.0.2
         - 8.0.0-pre.3
         compatible:
-        - 5.0.8
         - 5.0.9
         verified: 5.0.9
       dependencies:
@@ -164,13 +163,13 @@ m_PackageAssets:
       entitlements:
         isAllowed: 1
       isAssetStorePackage: 0
-      datePublishedTicks: 637684996900000000
+      datePublishedTicks: 637704378040000000
       documentationUrl: 
       hasRepository: 1
       repository:
         type: git
         url: https://github.cds.internal.unity3d.com/unity/2d.git
-        revision: f2df77302616ee97ac0bda980859324394e44df3
+        revision: 66590de9de7c21359f721ef05db04d7f1753bde9
         path: 
     - packageId: com.unity.2d.pixel-perfect@4.0.1
       testable: 0
@@ -247,12 +246,12 @@ m_PackageAssets:
         url: https://github.cds.internal.unity3d.com/unity/2d.git
         revision: 7d7470f4ca0ea8353d4c9640b3b6ae9d1ebd9c1d
         path: 
-    - packageId: com.unity.2d.psdimporter@4.1.1
+    - packageId: com.unity.2d.psdimporter@4.1.2
       testable: 0
       isDirectDependency: 1
-      version: 4.1.1
+      version: 4.1.2
       source: 1
-      resolvedPath: D:\Unity files\projects\frontend\Library\PackageCache\com.unity.2d.psdimporter@4.1.1
+      resolvedPath: D:\Unity files\projects\frontend\Library\PackageCache\com.unity.2d.psdimporter@4.1.2
       assetPath: Packages/com.unity.2d.psdimporter
       name: com.unity.2d.psdimporter
       displayName: 2D PSD Importer
@@ -318,14 +317,13 @@ m_PackageAssets:
         - 6.0.1
         - 7.0.0-pre.3
         compatible:
-        - 4.1.1
         - 4.1.2
         verified: 4.1.2
       dependencies:
       - name: com.unity.2d.common
         version: 4.0.3
       - name: com.unity.2d.animation
-        version: 5.0.8
+        version: 5.0.9
       - name: com.unity.2d.sprite
         version: 1.0.0
       resolvedDependencies:
@@ -344,7 +342,7 @@ m_PackageAssets:
       - name: com.unity.modules.uielementsnative
         version: 1.0.0
       - name: com.unity.2d.animation
-        version: 5.0.8
+        version: 5.0.9
       - name: com.unity.mathematics
         version: 1.1.0
       - name: com.unity.modules.animation
@@ -365,13 +363,13 @@ m_PackageAssets:
       entitlements:
         isAllowed: 1
       isAssetStorePackage: 0
-      datePublishedTicks: 637684996970000000
+      datePublishedTicks: 637704378080000000
       documentationUrl: 
       hasRepository: 1
       repository:
         type: git
         url: https://github.cds.internal.unity3d.com/unity/2d.git
-        revision: f2df77302616ee97ac0bda980859324394e44df3
+        revision: 66590de9de7c21359f721ef05db04d7f1753bde9
         path: 
     - packageId: com.unity.2d.sprite@1.0.0
       testable: 0
@@ -843,12 +841,12 @@ m_PackageAssets:
         url: https://github.cds.internal.unity3d.com/unity/com.unity.adaptiveperformance.samsung.android.git
         revision: 3639c5925556520c32ae34d66f24ac7326945eb9
         path: 
-    - packageId: com.unity.collab-proxy@1.13.5
+    - packageId: com.unity.collab-proxy@1.15.1
       testable: 0
       isDirectDependency: 1
-      version: 1.13.5
+      version: 1.15.1
       source: 1
-      resolvedPath: D:\Unity files\projects\frontend\Library\PackageCache\com.unity.collab-proxy@1.13.5
+      resolvedPath: D:\Unity files\projects\frontend\Library\PackageCache\com.unity.collab-proxy@1.15.1
       assetPath: Packages/com.unity.collab-proxy
       name: com.unity.collab-proxy
       displayName: Version Control
@@ -908,9 +906,6 @@ m_PackageAssets:
         - 2.1.0-preview.5
         - 2.1.0-preview.6
         compatible:
-        - 1.13.5
-        - 1.14.1
-        - 1.14.4
         - 1.15.1
         - 1.15.4
         - 2.0.0-preview.6
@@ -923,7 +918,7 @@ m_PackageAssets:
         - 2.1.0-preview.3
         - 2.1.0-preview.5
         - 2.1.0-preview.6
-        verified: 1.13.5
+        verified: 1.15.4
       dependencies:
       - name: com.unity.nuget.newtonsoft-json
         version: 2.0.0
@@ -962,13 +957,13 @@ m_PackageAssets:
       entitlements:
         isAllowed: 1
       isAssetStorePackage: 0
-      datePublishedTicks: 637685076530000000
+      datePublishedTicks: 637705007780000000
       documentationUrl: 
       hasRepository: 1
       repository:
         type: git
         url: https://github.cds.internal.unity3d.com/unity/com.unity.cloud.collaborate.git
-        revision: 4001806dc89b25276d1382d5abffd71731b030e5
+        revision: 44478cbd3117b13beac17ff868e64d0aed5c4071
         path: 
     - packageId: com.unity.ide.rider@2.0.7
       testable: 0
@@ -3962,4 +3957,4 @@ m_PackageAssets:
   m_LocalPackages:
     m_LocalFileStatus: []
 m_ProjectPath: D:/Unity files/projects/frontend/Packages
-m_EditorVersion: 2020.3.21f1 (a38c86f6690f)
+m_EditorVersion: 2020.3.23f1 (c5d91304a876)
