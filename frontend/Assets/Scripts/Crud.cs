@@ -31,13 +31,16 @@ public class Crud : MonoBehaviour
     public static Boolean Dark = false;
 
     public static Boolean getDark() { return Dark; }
-    public static void setDark(Boolean valueDark) { Dark = valueDark; }
+    public static void setDark(Boolean valueDark) { 
+        Dark = valueDark; 
+    }
 
     public GameObject itemParent, item, form_create, form_update, background, bkg_create, bkg_update, bkg_delete, txt_delete, txt_username;
 
     void Start()
     {
         txt_username.GetComponent<Text>().text = LoginUsers.getUsername();
+        Dark = LoginUsers.getDark();
         read();
     }
 
