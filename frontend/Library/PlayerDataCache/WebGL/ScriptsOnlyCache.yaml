@@ -8,6 +8,7 @@ ScriptsOnlyBuild:
     - CrudUsers
     - HideAfterSeconds
     - LoginUsers
+    - LoginUsers2
     Unity.2D.Animation.Editor.dll:
     - UnityEditor.U2D.Animation.BoneGizmo
     Unity.2D.IK.Editor.dll:
@@ -163,6 +164,61 @@ ScriptsOnlyBuild:
       Script: {instanceID: 3940}
     - Class: 114
       Script: {instanceID: 5836}
+    - Class: 115
+      Script: {instanceID: 0}
+    - Class: 128
+      Script: {instanceID: 0}
+    - Class: 157
+      Script: {instanceID: 0}
+    - Class: 196
+      Script: {instanceID: 0}
+    - Class: 213
+      Script: {instanceID: 0}
+    - Class: 222
+      Script: {instanceID: 0}
+    - Class: 223
+      Script: {instanceID: 0}
+    - Class: 224
+      Script: {instanceID: 0}
+    Assets/Scenes/MapPage.unity:
+    - Class: 1
+      Script: {instanceID: 0}
+    - Class: 4
+      Script: {instanceID: 0}
+    - Class: 20
+      Script: {instanceID: 0}
+    - Class: 21
+      Script: {instanceID: 0}
+    - Class: 28
+      Script: {instanceID: 0}
+    - Class: 48
+      Script: {instanceID: 0}
+    - Class: 81
+      Script: {instanceID: 0}
+    - Class: 104
+      Script: {instanceID: 0}
+    - Class: 114
+      Script: {instanceID: 1540}
+    - Class: 114
+      Script: {instanceID: 2296}
+    - Class: 114
+      Script: {instanceID: 2742}
+    - Class: 114
+      Script: {instanceID: 2924}
+    - Class: 114
+      Script: {instanceID: 3166}
+    - Class: 114
+      Script: {instanceID: 3232}
+    - Class: 114
+      Script: {instanceID: 3434}
+    - Class: 114
+      Script: {instanceID: 3564}
+    - Class: 114
+      Script: {instanceID: 3896}
+    - Class: 114
+      Script: {instanceID: 5836}
+    - Class: 114
+      Script: {instanceID: 39066}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -1126,6 +1182,12 @@ ScriptsOnlyBuild:
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: CrudMessages
+  - hash:
+      serializedVersion: 2
+      Hash: 8305dd7841c80bfbe54a1e1735514004
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: LoginUsers2
   platform: 20
   scenePathNames:
   - Assets/Scenes/MainPage.unity
@@ -1134,4 +1196,5 @@ ScriptsOnlyBuild:
   - Assets/Scenes/ImageTable.unity
   - Assets/Scenes/UserTable.unity
   - Assets/Scenes/TextsTable.unity
+  - Assets/Scenes/MapPage.unity
   playerPath: D:/Unity files/build web

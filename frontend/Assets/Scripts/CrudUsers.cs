@@ -142,12 +142,14 @@ public class CrudUsers : MonoBehaviour
         {
             Dark = false;
             Crud.setDark(Dark);
+            LoginUsers2.setDark(Dark);
             read();
         }
         else
         {
             Dark = true;
             Crud.setDark(Dark);
+            LoginUsers2.setDark(Dark);
             read();
         }
     }

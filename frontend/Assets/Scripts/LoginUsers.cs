@@ -41,10 +41,12 @@ public class LoginUsers : MonoBehaviour
     }
 
     public static string content;
-    public static OverUserModel contentUser;
+    public static OverUserModel contentUser = null;
     public static string access_token = "";
     public static string username = "";
     public static Boolean Dark = false;
+    public static OverUserModel getUser(){ return contentUser; }
+    public static void setUser(OverUserModel user){ contentUser = user; }
     public static string getUsername() { return username; }
     public static void setUsername(string usern) { username = usern; }
     public static Boolean getDark() { return Dark; }
@@ -59,6 +61,12 @@ public class LoginUsers : MonoBehaviour
     void Start()
     {
         closeWindows();
+        contentUser=LoginUsers2.getUser();
+        if(contentUser != null){
+            access_token = contentUser.access_token;
+        }else{
+            access_token = "";
+        }
         isLoggedin();
         settingDarkness();
     }
@@ -293,6 +301,7 @@ public class LoginUsers : MonoBehaviour
                 form_login.transform.GetChild(2).GetComponent<InputField>().text = "";
                 form_login.SetActive(false);
                 access_token = contentUser.access_token;
+                setUser(contentUser);
                 isLoggedin();
             }
             else
@@ -329,6 +338,8 @@ public class LoginUsers : MonoBehaviour
         txt_username.GetComponent<Text>().text = username;
         btn_settings.SetActive(false);
         contentUser = null;
+        setUser(contentUser);
+        LoginUsers2.setUser(contentUser);
         access_token = "";
         closeWindows();
         btn_logout.SetActive(false);
