@@ -35,6 +35,7 @@ public class LoginUsers2 : MonoBehaviour
         contentUser=LoginUsers.getUser();
         if(contentUser != null){
             access_token = contentUser.access_token;
+            Dark = contentUser.user.darkmode;
         }else{
             access_token = "";
         }
@@ -147,7 +148,7 @@ public class LoginUsers2 : MonoBehaviour
             request.SetRequestHeader("Authorization", "Bearer " + access_token);
             request.downloadHandler = new DownloadHandlerBuffer();
             yield return request.SendWebRequest();
-            email_window.transform.GetChild(1).GetComponent<InputField>().text = "";
+            email_window.transform.GetChild(1).GetComponent<InputField>().text = userUpdate.mail;
             email_window.transform.GetChild(2).GetComponent<InputField>().text = "";
             email_error.SetActive(true);
             email_error.transform.GetChild(0).GetComponent<Image>().transform.GetChild(0).GetComponent<Text>().text = "The email was changed";

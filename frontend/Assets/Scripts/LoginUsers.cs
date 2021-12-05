@@ -64,6 +64,7 @@ public class LoginUsers : MonoBehaviour
         contentUser=LoginUsers2.getUser();
         if(contentUser != null){
             access_token = contentUser.access_token;
+            Dark = contentUser.user.darkmode;
         }else{
             access_token = "";
         }
@@ -191,7 +192,7 @@ public class LoginUsers : MonoBehaviour
             request.SetRequestHeader("Authorization", "Bearer " + access_token);
             request.downloadHandler = new DownloadHandlerBuffer();
             yield return request.SendWebRequest();
-            email_window.transform.GetChild(1).GetComponent<InputField>().text = "";
+            email_window.transform.GetChild(1).GetComponent<InputField>().text = userUpdate.mail;
             email_window.transform.GetChild(2).GetComponent<InputField>().text = "";
             email_error.SetActive(true);
             email_error.transform.GetChild(0).GetComponent<Image>().transform.GetChild(0).GetComponent<Text>().text = "The email was changed";
@@ -440,6 +441,7 @@ public class LoginUsers : MonoBehaviour
 
             }
             Dark = false;
+            LoginUsers2.setDark(Dark);
             settingDarkness();
         }
         else
@@ -451,6 +453,7 @@ public class LoginUsers : MonoBehaviour
 
             }
             Dark = true;
+            LoginUsers2.setDark(Dark);
             settingDarkness();
         }
     }
@@ -482,6 +485,7 @@ public class LoginUsers : MonoBehaviour
         var black = new Color32(52, 52, 55, 255);
         if (Dark)
         {
+
             main_menu_black.SetActive(true);
             main_menu_white.SetActive(false);
             info.transform.GetChild(0).GetComponent<Image>().color = black;
