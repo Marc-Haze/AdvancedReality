@@ -25,9 +25,12 @@ public class HideAfterSeconds : MonoBehaviour{
 
     // Start is called before the first frame update
     void Start(){
-        videoPlayer.transform.GetChild(0).GetComponent<UnityEngine.Video.VideoPlayer>().url = System.IO.Path.Combine (Application.streamingAssetsPath,"lanzarote.mp4");
-        //videoPlayer.transform.GetChild(0).GetComponent<UnityEngine.Video.VideoPlayer>().Play();
-        /* */
+        videoPlayer.GetComponent<UnityEngine.Video.VideoPlayer>().url = System.IO.Path.Combine (Application.streamingAssetsPath,"Lanzarote1.mp4");
+        videoPlayer.GetComponent<UnityEngine.Video.VideoPlayer>().isLooping = true;
+        videoPlayer.GetComponent<UnityEngine.Video.VideoPlayer>().frame = 0;
+        
+        background.SetActive(true);
+        Invoke("hideUI3", 1.5f);
         if(!firstView){
             loading1.SetActive(true);
             Invoke("hideUI1", 3.5f);
@@ -40,10 +43,9 @@ public class HideAfterSeconds : MonoBehaviour{
     // Update is called once per frame
     void Update()
     {
-        if(!videoPlayer.transform.GetChild(0).GetComponent<UnityEngine.Video.VideoPlayer>().isPlaying){
-            background.SetActive(true);
-            Invoke("hideUI3", 1.5f);
-            videoPlayer.transform.GetChild(0).GetComponent<UnityEngine.Video.VideoPlayer>().Play();
+        UnityEngine.Video.VideoPlayer video = videoPlayer.GetComponent<UnityEngine.Video.VideoPlayer>();
+        if(!video.isPlaying){
+            video.Play();
         }
     }
 }

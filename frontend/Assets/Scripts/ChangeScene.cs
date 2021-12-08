@@ -9,8 +9,9 @@ using UnityEngine.Events; // This is so that you can extend the pointer handlers
 using UnityEngine.EventSystems;
 public class ChangeScene : MonoBehaviour
 {
+    public bool second=false;
     public void changeScene(string scenename)
-    {
+    { 
         SceneManager.LoadScene(scenename);
     }
     public void lightFont(PointerEventData eventData)

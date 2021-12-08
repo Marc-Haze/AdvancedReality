@@ -7,7 +7,7 @@ public class TourManager : MonoBehaviour
     //List of sites
     public GameObject[] objSites;
     //main menu
-    public GameObject canvasMainMenu;
+    public GameObject canvasMainMenu, Camera;
     //Should camera move
     public bool isCameraMove = false;
     public bool open = true; public bool firstload = false;
@@ -31,6 +31,26 @@ public class TourManager : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Tab))
             {
                 ReturnToMenu();
+            }
+            if(open){
+            if (Input.GetMouseButtonDown(0))
+            {
+                RaycastHit hit;
+                Ray ray = Camera.transform.GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
+                if(Physics.Raycast(ray, out hit, 100.0f)){
+                    if(hit.transform.gameObject.tag == "Image"){
+                        hit.transform.gameObject.GetComponent<MediaImage>().ShowImage();
+                    }else if(hit.transform.gameObject.tag == "Timanfaya"){
+                        LoadSite(3);
+                    }else if(hit.transform.gameObject.tag == "Arrecife"){
+                        LoadSite(1);
+                    }else if(hit.transform.gameObject.tag == "LaGraciosa"){
+                        LoadSite(2);
+                    }else if(hit.transform.gameObject.tag == "PlayaBlanca"){
+                        LoadSite(0);
+                    }
+                }
+            }
             }
         }
     }
@@ -77,5 +97,14 @@ public class TourManager : MonoBehaviour
         /*for(int i = 0; i < objSites.Length; i++){
             objSites[i].SetActive(false);
         }*/
+    }
+
+    public void ReturnToSite(){
+        isCameraMove = true;
+    }
+
+    public void OpenMedia(){
+        isCameraMove = false;
+        GetComponent<CameraController>().ResetZoom();
     }
 }

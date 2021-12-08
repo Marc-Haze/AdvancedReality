@@ -27,7 +27,8 @@ public class LoginUsers2 : MonoBehaviour
 
     public GameObject form_login, txt_username, txt_mail, btn_settings, btn_login, btn_logout, login_error,
     form_register, register_error, password_window, password_error, user_settings,
-    email_window, email_error, delete_window, main_menu_white, main_menu_black, places;
+    email_window, email_error, delete_window, main_menu_white, main_menu_black, places,
+    infoPlaya, infoArrecife, infoGraciosa, infoTimanfaya;
 
     void Start()
     {
@@ -432,6 +433,14 @@ public class LoginUsers2 : MonoBehaviour
                 delete_window.transform.GetChild(0).GetComponent<Image>().color = black;
                 delete_window.transform.GetChild(0).transform.GetChild(1).GetComponent<Text>().color = white;
             }
+            infoPlaya.transform.GetChild(0).transform.GetChild(2).GetComponent<Image>().color = black;
+            infoPlaya.transform.GetChild(0).transform.GetChild(2).transform.GetChild(1).GetComponent<Text>().color = white;
+            infoArrecife.transform.GetChild(0).transform.GetChild(2).GetComponent<Image>().color = black;
+            infoArrecife.transform.GetChild(0).transform.GetChild(2).transform.GetChild(1).GetComponent<Text>().color = white;
+            infoGraciosa.transform.GetChild(0).transform.GetChild(2).GetComponent<Image>().color = black;
+            infoGraciosa.transform.GetChild(0).transform.GetChild(2).transform.GetChild(1).GetComponent<Text>().color = white;
+            infoTimanfaya.transform.GetChild(0).transform.GetChild(2).GetComponent<Image>().color = black;
+            infoTimanfaya.transform.GetChild(0).transform.GetChild(2).transform.GetChild(1).GetComponent<Text>().color = white;
         }
         else
         {
@@ -466,6 +475,14 @@ public class LoginUsers2 : MonoBehaviour
                 delete_window.transform.GetChild(0).GetComponent<Image>().color = white;
                 delete_window.transform.GetChild(0).transform.GetChild(1).GetComponent<Text>().color = black;
             }
+            infoPlaya.transform.GetChild(0).transform.GetChild(2).GetComponent<Image>().color = white;;
+            infoPlaya.transform.GetChild(0).transform.GetChild(2).transform.GetChild(1).GetComponent<Text>().color = black;
+            infoArrecife.transform.GetChild(0).transform.GetChild(2).GetComponent<Image>().color = white;;
+            infoArrecife.transform.GetChild(0).transform.GetChild(2).transform.GetChild(1).GetComponent<Text>().color = black;
+            infoGraciosa.transform.GetChild(0).transform.GetChild(2).GetComponent<Image>().color = white;;
+            infoGraciosa.transform.GetChild(0).transform.GetChild(2).transform.GetChild(1).GetComponent<Text>().color = black;
+            infoTimanfaya.transform.GetChild(0).transform.GetChild(2).GetComponent<Image>().color = white;;
+            infoTimanfaya.transform.GetChild(0).transform.GetChild(2).transform.GetChild(1).GetComponent<Text>().color = black;
         }
     }
 

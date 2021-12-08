@@ -13,7 +13,7 @@ m_ProjectFiles:
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 637741280139518034
+      ticks: 637744929014499696
     m_Hash: 3708002248
 m_EmbeddedPackageManifests:
   m_ManifestsStatus: {}
@@ -81,6 +81,7 @@ m_PackageAssets:
         - 3.2.11
         - 3.2.13
         - 3.2.14
+        - 3.2.15
         - 4.0.0
         - 4.0.1
         - 4.1.0
@@ -476,6 +477,7 @@ m_PackageAssets:
         - 3.0.15
         - 3.0.16
         - 3.0.17
+        - 3.0.18
         - 4.0.0
         - 4.0.1
         - 4.0.2
@@ -892,8 +894,10 @@ m_PackageAssets:
         - 1.13.5
         - 1.14.1
         - 1.14.4
+        - 1.14.7
         - 1.15.1
         - 1.15.4
+        - 1.15.7
         - 2.0.0-preview.6
         - 2.0.0-preview.8
         - 2.0.0-preview.15
@@ -906,6 +910,7 @@ m_PackageAssets:
         - 2.1.0-preview.6
         compatible:
         - 1.15.4
+        - 1.15.7
         - 2.0.0-preview.6
         - 2.0.0-preview.8
         - 2.0.0-preview.15
@@ -916,7 +921,7 @@ m_PackageAssets:
         - 2.1.0-preview.3
         - 2.1.0-preview.5
         - 2.1.0-preview.6
-        verified: 1.15.4
+        verified: 1.15.7
       dependencies:
       - name: com.unity.nuget.newtonsoft-json
         version: 2.0.0
