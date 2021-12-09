@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 23-11-2021 a las 16:03:11
+-- Tiempo de generación: 09-12-2021 a las 13:24:21
 -- Versión del servidor: 10.4.19-MariaDB
 -- Versión de PHP: 8.0.6
 
@@ -46,7 +46,7 @@ INSERT INTO `images` (`id`, `name`, `fileName`, `description`, `createdAt`, `upd
 (3, 'The big opening', 'The big opening.jpg', 'Where all started', '2021-10-31 16:30:15', '2021-10-31 16:30:15'),
 (4, 'Our Builds', 'Our_Builds.jpg', 'Clean and smooth', '0001-01-01 01:01:36', '2021-11-03 16:02:51'),
 (14, 'Example1', 'Example.jpg', 'It\'s an example, what if I write a lot', '0001-01-01 01:01:36', '2021-11-05 15:34:13'),
-(18, '3', '3', '3', '0001-01-01 01:01:36', '2021-11-15 15:34:05');
+(18, 'Example5', 'file.jpg', 'Other example', '0001-01-01 01:01:36', '2021-11-26 18:01:04');
 
 -- --------------------------------------------------------
 
@@ -69,7 +69,7 @@ CREATE TABLE `reviews` (
 --
 
 INSERT INTO `reviews` (`id`, `content`, `mail`, `target`, `userId`, `createdAt`, `updatedAt`) VALUES
-(4, 'Ejemplo de review', 'asoret@gmail.com', 'maspalomas', NULL, '0001-01-01 01:01:36', '2021-11-22 19:30:10');
+(4, 'Ejemplo de review editado', 'asoret@gmail.com', 'maspalomas', NULL, '0001-01-01 01:01:36', '2021-11-23 15:22:01');
 
 -- --------------------------------------------------------
 
@@ -91,8 +91,13 @@ CREATE TABLE `texts` (
 --
 
 INSERT INTO `texts` (`id`, `content`, `mail`, `userId`, `createdAt`, `updatedAt`) VALUES
-(3, 'aaa', 'aaa', NULL, '2021-11-10 17:29:58', '2021-11-10 17:29:58'),
-(5, 'Ejemplo de mensaje largo, editar para ver completo porque no entra en la tabla', 'ibraime@gmail.com', NULL, '0001-01-01 01:01:36', '2021-11-10 19:09:56');
+(3, 'example', 'example@gmail.com', NULL, '0001-01-01 01:01:36', '2021-11-23 16:12:26'),
+(5, 'Ejemplo de mensaje largo, editar para ver completo porque no entra en la tabla', 'ibraime@gmail.com', NULL, '0001-01-01 01:01:36', '2021-11-10 19:09:56'),
+(6, 'I have to write this again for a simple but punisher mistake, hope it works this time to send a message please.', 'admin@admin.com', 8, '2021-11-24 17:56:29', '2021-11-24 17:56:29'),
+(10, 'Interesting project, not myself sure', 'asoret@email.com', 4, '2021-11-24 18:05:22', '2021-11-24 18:05:22'),
+(11, 'Prueba2 mod', 'asoret@email.com', NULL, '0001-01-01 01:01:36', '2021-12-08 20:22:29'),
+(14, 'Mensaje de prueba web', 'admin@admin.com', 8, '2021-11-26 01:48:46', '2021-11-26 01:48:46'),
+(18, 'trial itch', 'admin@admin.com', 8, '2021-12-08 20:32:42', '2021-12-08 20:32:42');
 
 -- --------------------------------------------------------
 
@@ -117,8 +122,8 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `username`, `password`, `mail`, `darkmode`, `isAdmin`, `createdAt`, `updatedAt`) VALUES
 (4, 'asoret', '$2a$10$OO2gCH221AqaGEaW/8Bk/u0czFBa9zyLyUABUje2O.APCTcdcTicS', 'asoret@email.com', 0, 1, '2021-10-21 15:21:03', '2021-10-21 15:21:03'),
-(8, 'admin', '$2a$10$qHcxqwAceaf66afvBAC5EO8CzzYoPlpRIrgfLcFUPmwYsIk6YQaLi', 'admin@admin.com', 0, 1, '2021-11-17 18:33:59', '2021-11-17 18:33:59'),
-(13, 'another', '$2a$10$za5ZbhtZPnFN.eWEe3FPXuS642LYztzOy6O/T4cwiuourT7z2TC1m', 'another@gmail.com', 0, 0, '0001-01-01 01:01:36', '2021-11-22 17:49:45');
+(8, 'admin', '$2a$10$IN13TR25glEFoAZxR9MPBeTTlchhNU6prVz88mP7ZGqpjkfu6YC16', 'admin@admin.com', 1, 1, '0001-01-01 01:01:36', '2021-12-08 20:21:51'),
+(13, 'another1', '$2a$10$rndRR.7hUZgZa3r68dZyUuiN48DCcGylIuowNSPmP.LQSGSLCkf/q', 'another@gmail.com', 0, 0, '0001-01-01 01:01:36', '2021-11-26 18:36:34');
 
 --
 -- Índices para tablas volcadas
@@ -158,25 +163,25 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT de la tabla `images`
 --
 ALTER TABLE `images`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT de la tabla `reviews`
 --
 ALTER TABLE `reviews`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `texts`
 --
 ALTER TABLE `texts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- Restricciones para tablas volcadas
