@@ -16,7 +16,7 @@ public class CrudComments : MonoBehaviour
     public class ReviewModel{
         public int id { get; set; }
         public string content { get; set; }
-        public string mail { get; set; }
+        public string username { get; set; }
         public string target { get; set; }
         public DateTime createdAt { get; set; }
         public DateTime updatedAt { get; set; }
@@ -28,12 +28,17 @@ public class CrudComments : MonoBehaviour
     public static string idUpdate;
     public static string idDelete;
 
+    public static LoginUsers.OverUserModel contentUser = null;
+    public static LoginUsers.OverUserModel getUser(){ return contentUser; }
+    public static void setUser(LoginUsers.OverUserModel user){ contentUser = user; }
+
     public static Boolean Dark = false;
 
     public GameObject itemParent, item, form_create, form_update, background, bkg_create, bkg_update, bkg_delete, txt_delete, txt_username;
 
     void Start(){
         txt_username.GetComponent<Text>().text = LoginUsers.getUsername();
+        contentUser = LoginUsers.getUser();
         Dark=Crud.getDark();
         read();
     }
@@ -64,7 +69,7 @@ public class CrudComments : MonoBehaviour
                 tmp_item.transform.GetChild(1).GetComponent<Text>().color = Color.white;
                 tmp_item.transform.GetChild(1).GetComponent<Text>().text = model.content;
                 tmp_item.transform.GetChild(2).GetComponent<Text>().color = Color.white;
-                tmp_item.transform.GetChild(2).GetComponent<Text>().text = model.mail;
+                tmp_item.transform.GetChild(2).GetComponent<Text>().text = model.username;
                 tmp_item.transform.GetChild(3).GetComponent<Text>().color = Color.white;
                 tmp_item.transform.GetChild(3).GetComponent<Text>().text = model.target;
             }
@@ -91,35 +96,68 @@ public class CrudComments : MonoBehaviour
                 tmp_item.transform.GetChild(1).GetComponent<Text>().color = Color.black;
                 tmp_item.transform.GetChild(1).GetComponent<Text>().text = model.content;
                 tmp_item.transform.GetChild(2).GetComponent<Text>().color = Color.black;
-                tmp_item.transform.GetChild(2).GetComponent<Text>().text = model.mail;
+                tmp_item.transform.GetChild(2).GetComponent<Text>().text = model.username;
                 tmp_item.transform.GetChild(3).GetComponent<Text>().color = Color.black;
                 tmp_item.transform.GetChild(3).GetComponent<Text>().text = model.target;
             }
         }
     }
 
-    public void changeDarkness(){
-        if(Dark){
-            Dark=false;
+    public void changeDarkness()
+    {
+        if (Dark)
+        {
+            contentUser.user.darkmode = false;
+            StartCoroutine(changeDarknessI());
+            Dark = false;
             Crud.setDark(Dark);
+            LoginUsers.setDark(Dark);
+            LoginUsers2.setDark(Dark);
             read();
-        }else{
-            Dark=true;
+        }
+        else
+        {
+            contentUser.user.darkmode = true;
+            StartCoroutine(changeDarknessI());
+            Dark = true;
             Crud.setDark(Dark);
+            LoginUsers.setDark(Dark);
+            LoginUsers2.setDark(Dark);
             read();
         }
     }
+
+    IEnumerator changeDarknessI()
+    {
+        var userUpdate = new LoginUsers.UserModel();
+        userUpdate.id = contentUser.user.id;
+        userUpdate.username = contentUser.user.username;
+        userUpdate.password = contentUser.user.password;
+        userUpdate.mail = contentUser.user.mail;
+        userUpdate.isAdmin = contentUser.user.isAdmin;
+        userUpdate.darkmode = contentUser.user.darkmode;
+        var json = JsonConvert.SerializeObject(userUpdate);
+        //var updateData = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
+        var byteArray = System.Text.Encoding.UTF8.GetBytes(json);
+        UnityWebRequest request = UnityWebRequest.Put("http://localhost:4000/api/users/" + userUpdate.id, byteArray);
+        request.SetRequestHeader("Content-Type", "application/json");
+        request.SetRequestHeader("Authorization", "Bearer " + contentUser.access_token);
+        request.downloadHandler = new DownloadHandlerBuffer();
+        yield return request.SendWebRequest();
+        userUpdate = null;
+    }
+
     public void create(){
         StartCoroutine(createI());
     }
     IEnumerator createI(){
         var review = new ReviewModel();
         review.content = form_create.transform.GetChild(1).GetComponent<InputField>().text;
-        review.mail = form_create.transform.GetChild(2).GetComponent<InputField>().text;
+        review.username = form_create.transform.GetChild(2).GetComponent<InputField>().text;
         review.target = form_create.transform.GetChild(3).GetComponent<InputField>().text;
         WWWForm form = new WWWForm();
         form.AddField("content", review.content);
-        form.AddField("mail", review.mail);
+        form.AddField("username", review.username);
         form.AddField("target", review.target);
         UnityWebRequest request = UnityWebRequest.Post("http://localhost:4000/api/reviews",form);
         request.SetRequestHeader("Content-Type", "application/x-www-form-urlencoded");
@@ -168,7 +206,7 @@ public class CrudComments : MonoBehaviour
         var reviewUpdate = new ReviewModel();
         reviewUpdate.id = int.Parse(idUpdate);
         reviewUpdate.content = form_update.transform.GetChild(1).GetComponent<InputField>().text;
-        reviewUpdate.mail = form_update.transform.GetChild(2).GetComponent<InputField>().text;
+        reviewUpdate.username = form_update.transform.GetChild(2).GetComponent<InputField>().text;
         reviewUpdate.target = form_update.transform.GetChild(3).GetComponent<InputField>().text;
         var json = JsonConvert.SerializeObject(reviewUpdate);
         //var updateData = new StringContent(json, System.Text.Encoding.UTF8, "application/json");

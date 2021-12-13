@@ -11,6 +11,11 @@ public class TourManager : MonoBehaviour
     //Should camera move
     public bool isCameraMove = false;
     public bool open = true; public bool firstload = false;
+    //Place where we are
+    public static string place="Playa Blanca";
+    public static string getPlace(){
+        return place;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -31,6 +36,7 @@ public class TourManager : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Tab))
             {
                 ReturnToMenu();
+                
             }
             if(open){
             if (Input.GetMouseButtonDown(0))
@@ -52,6 +58,9 @@ public class TourManager : MonoBehaviour
                 }
             }
             }
+        }else{
+            LoadSite(0);
+            ReturnToMenu();
         }
     }
 
@@ -63,6 +72,15 @@ public class TourManager : MonoBehaviour
             objSites[i].SetActive(false);
         }
         objSites[siteNumber].SetActive(true);
+        if(siteNumber == 0){
+            place = "Playa Blanca";
+        }else if(siteNumber == 1){
+            place = "Arrecife";
+        }else if(siteNumber == 2){
+            place = "La Graciosa";
+        }else if(siteNumber == 3){
+            place = "National Park Timanfaya";
+        }
         //hide menu
         canvasMainMenu.SetActive(false);
         //enable the camera

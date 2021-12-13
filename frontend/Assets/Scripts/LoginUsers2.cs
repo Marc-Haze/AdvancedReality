@@ -2,16 +2,19 @@ using System;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using UnityEngine.Networking;
+using System.Threading.Tasks;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Networking;
 using Newtonsoft.Json;
 
 public class LoginUsers2 : MonoBehaviour
 {
     public static string content;
+    public static List<CrudComments.ReviewModel> contentArray;
+    public static List<Crud.ImageModel> contentArrayImage;
     public static LoginUsers.OverUserModel contentUser = null;
     public static string access_token = "";
     public static string username = "";
@@ -23,16 +26,24 @@ public class LoginUsers2 : MonoBehaviour
     public static Boolean getDark() { return Dark; }
     public static void setDark(Boolean valueDark) { Dark = valueDark; }
     public static string getToken() { return access_token; }
+    public int cuenta = 0;
+    public int cuentaElegida = 0;
+    public int cuentaMaxima = 0;
 
 
     public GameObject form_login, txt_username, txt_mail, btn_settings, btn_login, btn_logout, login_error,
     form_register, register_error, password_window, password_error, user_settings,
     email_window, email_error, delete_window, main_menu_white, main_menu_black, places,
-    infoPlaya, infoArrecife, infoGraciosa, infoTimanfaya;
+    infoPlaya, infoArrecife, infoGraciosa, infoTimanfaya, itemParent, item, txt_place, 
+    comment_log, comment_write, scrollView, comments, images, txt_place_image, itemImage, itemParentImage;
 
     void Start()
     {
+        cuentaElegida=0;
         closeWindows();
+        comments.SetActive(false);
+        images.SetActive(false);
+        places.SetActive(true);
         contentUser=LoginUsers.getUser();
         if(contentUser != null){
             access_token = contentUser.access_token;
@@ -56,6 +67,129 @@ public class LoginUsers2 : MonoBehaviour
         email_window.SetActive(false);
         email_error.SetActive(false);
         delete_window.SetActive(false);
+    }
+    public void destroyImages(){
+        for (int i = 0; i < itemParentImage.transform.childCount; i++){
+            Destroy(itemParentImage.transform.GetChild(i).gameObject);
+        }
+    }
+    public void readImages(){
+        StartCoroutine(readImagesI());
+    }
+    IEnumerator readImagesI(){
+            
+            txt_place_image.GetComponent<Text>().text = TourManager.getPlace();
+            /*using var client = new HttpClient();
+            content = await client.GetStringAsync("http://localhost:4000/api/reviews");*/
+            UnityWebRequest request = new UnityWebRequest("http://localhost:4000/api/images", "GET");
+            request.downloadHandler = new DownloadHandlerBuffer();
+            yield return request.SendWebRequest();
+            Debug.Log(request.downloadHandler.text);
+            contentArrayImage = JsonConvert.DeserializeObject<List<Crud.ImageModel>>(request.downloadHandler.text);
+            //contentArrayImage.Reverse();
+            itemImage.SetActive(true);
+            foreach (Crud.ImageModel model in contentArrayImage)
+            {
+                if(model.description == TourManager.getPlace()){
+                    if(cuenta == cuentaElegida){
+                        
+                        GameObject tmp_item = Instantiate(itemImage, itemParentImage.transform);
+                        tmp_item.transform.GetComponent<Image>().sprite = Resources.Load<Sprite>(model.fileName); 
+                    }
+                    cuenta++;
+                }
+            }
+            itemImage.SetActive(false);
+            cuentaMaxima = cuenta - 1;
+            cuenta = 0;
+    }
+
+    public void imageNext(){
+        if(cuentaElegida == cuentaMaxima){
+            cuentaElegida = 0;
+        }else{
+            cuentaElegida++;
+        }
+        readImages();
+    }
+
+    public void imageBefore(){
+        if(cuentaElegida == 0){
+            cuentaElegida = cuentaMaxima;
+        }else{
+            cuentaElegida--;
+        }
+        readImages();
+    }
+
+    public void read(){
+        StartCoroutine(readI());
+    }
+    IEnumerator readI(){
+            txt_place.GetComponent<Text>().text= TourManager.getPlace();
+        if (Dark){
+            for (int i = 0; i < itemParent.transform.childCount; i++){
+                Destroy(itemParent.transform.GetChild(i).gameObject);
+            }
+            /*using var client = new HttpClient();
+            content = await client.GetStringAsync("http://localhost:4000/api/reviews");*/
+            UnityWebRequest request = new UnityWebRequest("http://localhost:4000/api/reviews", "GET");
+            request.downloadHandler = new DownloadHandlerBuffer();
+            yield return request.SendWebRequest();
+            contentArray = JsonConvert.DeserializeObject<List<CrudComments.ReviewModel>>(request.downloadHandler.text);
+            contentArray.Reverse();
+            foreach (CrudComments.ReviewModel model in contentArray){
+                if(model.target == TourManager.getPlace()){
+                    GameObject tmp_item = Instantiate(item, itemParent.transform);
+                    tmp_item.transform.GetChild(0).GetComponent<Image>().color = new Color32(52, 52, 55, 255);
+                    tmp_item.transform.GetChild(1).GetComponent<Text>().text = model.username + " says:";
+                    tmp_item.transform.GetChild(0).transform.GetChild(0).GetComponent<Text>().color = Color.white;
+                    tmp_item.transform.GetChild(0).transform.GetChild(0).GetComponent<Text>().text = model.content;
+                }
+            }
+        }else{
+            for (int i = 0; i < itemParent.transform.childCount; i++){
+                Destroy(itemParent.transform.GetChild(i).gameObject);
+            }
+            /*using var client = new HttpClient();
+            content = await client.GetStringAsync("http://localhost:4000/api/reviews");*/
+            UnityWebRequest request = new UnityWebRequest("http://localhost:4000/api/reviews", "GET");
+            request.downloadHandler = new DownloadHandlerBuffer();
+            yield return request.SendWebRequest();
+            contentArray = JsonConvert.DeserializeObject<List<CrudComments.ReviewModel>>(request.downloadHandler.text);
+            contentArray.Reverse();
+            foreach (CrudComments.ReviewModel model in contentArray){
+                if(model.target == TourManager.getPlace()){
+                    GameObject tmp_item = Instantiate(item, itemParent.transform);
+                    tmp_item.transform.GetChild(0).GetComponent<Image>().color = new Color32(255, 255, 255, 255);
+                    tmp_item.transform.GetChild(1).GetComponent<Text>().text = model.username + " says:";
+                    tmp_item.transform.GetChild(0).transform.GetChild(0).GetComponent<Text>().color = Color.black;
+                    tmp_item.transform.GetChild(0).transform.GetChild(0).GetComponent<Text>().text = model.content;
+                }
+            }
+        }
+    }
+
+    public void createComment(){
+        StartCoroutine(createCommentI());
+    }
+    IEnumerator createCommentI(){
+        var review = new CrudComments.ReviewModel();
+        review.content = comment_write.transform.GetChild(0).transform.GetChild(2).GetComponent<InputField>().text;
+        review.username = contentUser.user.username;
+        review.target = TourManager.getPlace();
+        review.userId = contentUser.user.id;
+        WWWForm form = new WWWForm();
+        form.AddField("content", review.content);
+        form.AddField("username", review.username);
+        form.AddField("target", review.target);
+        form.AddField("userId", review.userId.ToString());
+        UnityWebRequest request = UnityWebRequest.Post("http://localhost:4000/api/reviews",form);
+        request.SetRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        request.downloadHandler = new DownloadHandlerBuffer();
+        yield return request.SendWebRequest();
+        comment_write.transform.GetChild(0).transform.GetChild(2).GetComponent<InputField>().text = "";
+        read();
     }
 
     public void changePassword()
@@ -224,7 +358,7 @@ public class LoginUsers2 : MonoBehaviour
                 form_login.transform.GetChild(2).GetComponent<InputField>().text = "";
                 form_login.SetActive(false);
                 access_token = contentUser.access_token;
-                setUser(contentUser);
+                LoginUsers.setUser(contentUser);
                 isLoggedin();
             }
             else
@@ -246,6 +380,8 @@ public class LoginUsers2 : MonoBehaviour
             btn_settings.SetActive(true);
             btn_logout.SetActive(true);
             btn_login.SetActive(false);
+            comment_log.SetActive(false);
+            comment_write.SetActive(true);
             Dark = contentUser.user.darkmode;
             settingDarkness();
         }
@@ -257,12 +393,13 @@ public class LoginUsers2 : MonoBehaviour
         txt_username.GetComponent<Text>().text = username;
         btn_settings.SetActive(false);
         contentUser = null;
-        setUser(contentUser);
         LoginUsers.setUser(contentUser);
         access_token = "";
         closeWindows();
         btn_logout.SetActive(false);
         btn_login.SetActive(true);
+        comment_log.SetActive(true);
+        comment_write.SetActive(false);
     }
     public void register()
     {
@@ -358,8 +495,6 @@ public class LoginUsers2 : MonoBehaviour
 
             }
             Dark = false;
-            LoginUsers.setDark(Dark);
-            settingDarkness();
         }
         else
         {
@@ -370,9 +505,9 @@ public class LoginUsers2 : MonoBehaviour
 
             }
             Dark = true;
-            LoginUsers.setDark(Dark);
-            settingDarkness();
         }
+        LoginUsers.setDark(Dark);
+        settingDarkness();
     }
 
     IEnumerator changeDarknessI()
@@ -398,6 +533,7 @@ public class LoginUsers2 : MonoBehaviour
     public void settingDarkness()
     {
         Crud.setDark(Dark);
+        read(); readImages();
         var white = new Color32(255, 255, 255, 255);
         var black = new Color32(52, 52, 55, 255);
         if (Dark)
@@ -432,6 +568,8 @@ public class LoginUsers2 : MonoBehaviour
                 email_window.transform.GetChild(0).transform.GetChild(2).GetComponent<Text>().color = white;
                 delete_window.transform.GetChild(0).GetComponent<Image>().color = black;
                 delete_window.transform.GetChild(0).transform.GetChild(1).GetComponent<Text>().color = white;
+                comment_write.transform.GetChild(0).GetComponent<Image>().color = black;
+                comment_write.transform.GetChild(0).transform.GetChild(0).GetComponent<Text>().color = white;
             }
             infoPlaya.transform.GetChild(0).transform.GetChild(2).GetComponent<Image>().color = black;
             infoPlaya.transform.GetChild(0).transform.GetChild(2).transform.GetChild(1).GetComponent<Text>().color = white;
@@ -441,6 +579,9 @@ public class LoginUsers2 : MonoBehaviour
             infoGraciosa.transform.GetChild(0).transform.GetChild(2).transform.GetChild(1).GetComponent<Text>().color = white;
             infoTimanfaya.transform.GetChild(0).transform.GetChild(2).GetComponent<Image>().color = black;
             infoTimanfaya.transform.GetChild(0).transform.GetChild(2).transform.GetChild(1).GetComponent<Text>().color = white;
+            comment_log.transform.GetChild(0).GetComponent<Image>().color = black;
+            comment_log.transform.GetChild(0).transform.GetChild(0).GetComponent<Text>().color = white;
+            scrollView.GetComponent<Image>().color = black;
         }
         else
         {
@@ -474,20 +615,32 @@ public class LoginUsers2 : MonoBehaviour
                 email_window.transform.GetChild(0).transform.GetChild(2).GetComponent<Text>().color = black;
                 delete_window.transform.GetChild(0).GetComponent<Image>().color = white;
                 delete_window.transform.GetChild(0).transform.GetChild(1).GetComponent<Text>().color = black;
+                comment_write.transform.GetChild(0).GetComponent<Image>().color = white;
+                comment_write.transform.GetChild(0).transform.GetChild(0).GetComponent<Text>().color = black;
             }
-            infoPlaya.transform.GetChild(0).transform.GetChild(2).GetComponent<Image>().color = white;;
+            infoPlaya.transform.GetChild(0).transform.GetChild(2).GetComponent<Image>().color = white;
             infoPlaya.transform.GetChild(0).transform.GetChild(2).transform.GetChild(1).GetComponent<Text>().color = black;
-            infoArrecife.transform.GetChild(0).transform.GetChild(2).GetComponent<Image>().color = white;;
+            infoArrecife.transform.GetChild(0).transform.GetChild(2).GetComponent<Image>().color = white;
             infoArrecife.transform.GetChild(0).transform.GetChild(2).transform.GetChild(1).GetComponent<Text>().color = black;
-            infoGraciosa.transform.GetChild(0).transform.GetChild(2).GetComponent<Image>().color = white;;
+            infoGraciosa.transform.GetChild(0).transform.GetChild(2).GetComponent<Image>().color = white;
             infoGraciosa.transform.GetChild(0).transform.GetChild(2).transform.GetChild(1).GetComponent<Text>().color = black;
-            infoTimanfaya.transform.GetChild(0).transform.GetChild(2).GetComponent<Image>().color = white;;
+            infoTimanfaya.transform.GetChild(0).transform.GetChild(2).GetComponent<Image>().color = white;
             infoTimanfaya.transform.GetChild(0).transform.GetChild(2).transform.GetChild(1).GetComponent<Text>().color = black;
+            comment_log.transform.GetChild(0).GetComponent<Image>().color = white;
+            comment_log.transform.GetChild(0).transform.GetChild(0).GetComponent<Text>().color = black;
+            scrollView.GetComponent<Image>().color = white;
         }
     }
 
     void Update()
     {
-
+        if (Input.GetKeyDown(KeyCode.Tab))
+            {
+                destroyImages();
+                read();
+                readImages();
+                cuentaElegida=0;
+                cuentaMaxima=0;
+            }
     }
 }

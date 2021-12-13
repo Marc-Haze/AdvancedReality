@@ -16010,7 +16010,7 @@ GameObject:
   - component: {fileID: 1831674587}
   - component: {fileID: 1831674586}
   m_Layer: 5
-  m_Name: InputName
+  m_Name: InputContent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

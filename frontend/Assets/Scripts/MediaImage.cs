@@ -15,10 +15,9 @@ public class MediaImage : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(canvasImage.activeSelf && Input.GetKeyDown(KeyCode.Tab)){
-            HideImage();
+        if(Input.GetKeyDown(KeyCode.Tab)){
+            canvasImage.SetActive(false);
         }
-        
     }
 
     public void ShowImage(){

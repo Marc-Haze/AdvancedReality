@@ -28,19 +28,22 @@ public class Crud : MonoBehaviour
     public static string idUpdate;
     public static string idDelete;
 
-    public static Boolean Dark = false;
+    public static LoginUsers.OverUserModel contentUser = null;
+    public static LoginUsers.OverUserModel getUser(){ return contentUser; }
+    public static void setUser(LoginUsers.OverUserModel user){ contentUser = user; }
 
-    public static Boolean getDark() { return Dark; }
-    public static void setDark(Boolean valueDark) { 
-        Dark = valueDark; 
-    }
+    public static Boolean Dark = false;
+    public static void setDark(Boolean valueDark) { Dark = valueDark; }
+    public static bool getDark() { return Dark; }
 
     public GameObject itemParent, item, form_create, form_update, background, bkg_create, bkg_update, bkg_delete, txt_delete, txt_username;
 
     void Start()
     {
+        
         txt_username.GetComponent<Text>().text = LoginUsers.getUsername();
         Dark = LoginUsers.getDark();
+        contentUser = LoginUsers.getUser();
         read();
     }
 
@@ -119,14 +122,42 @@ public class Crud : MonoBehaviour
     {
         if (Dark)
         {
+            contentUser.user.darkmode = false;
+            StartCoroutine(changeDarknessI());
             Dark = false;
+            LoginUsers.setDark(Dark);
+            LoginUsers2.setDark(Dark);
             read();
         }
         else
         {
+            contentUser.user.darkmode = true;
+            StartCoroutine(changeDarknessI());
             Dark = true;
+            LoginUsers.setDark(Dark);
+            LoginUsers2.setDark(Dark);
             read();
         }
+    }
+
+    IEnumerator changeDarknessI()
+    {
+        var userUpdate = new LoginUsers.UserModel();
+        userUpdate.id = contentUser.user.id;
+        userUpdate.username = contentUser.user.username;
+        userUpdate.password = contentUser.user.password;
+        userUpdate.mail = contentUser.user.mail;
+        userUpdate.isAdmin = contentUser.user.isAdmin;
+        userUpdate.darkmode = contentUser.user.darkmode;
+        var json = JsonConvert.SerializeObject(userUpdate);
+        //var updateData = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
+        var byteArray = System.Text.Encoding.UTF8.GetBytes(json);
+        UnityWebRequest request = UnityWebRequest.Put("http://localhost:4000/api/users/" + userUpdate.id, byteArray);
+        request.SetRequestHeader("Content-Type", "application/json");
+        request.SetRequestHeader("Authorization", "Bearer " + contentUser.access_token);
+        request.downloadHandler = new DownloadHandlerBuffer();
+        yield return request.SendWebRequest();
+        userUpdate = null;
     }
 
     public void create()

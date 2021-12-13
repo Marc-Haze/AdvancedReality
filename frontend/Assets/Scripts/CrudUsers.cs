@@ -33,6 +33,10 @@ public class CrudUsers : MonoBehaviour
     public static string idUpdate;
     public static string idDelete;
 
+    public static LoginUsers.OverUserModel contentUser = null;
+    public static LoginUsers.OverUserModel getUser(){ return contentUser; }
+    public static void setUser(LoginUsers.OverUserModel user){ contentUser = user; }
+
     public static Boolean Dark = false;
 
     public static Boolean getDark() { return Dark; }
@@ -43,6 +47,7 @@ public class CrudUsers : MonoBehaviour
     void Start()
     {
         txt_username.GetComponent<Text>().text = LoginUsers.getUsername();
+        contentUser = LoginUsers.getUser();
         Dark = Crud.getDark();
         read();
     }
@@ -140,19 +145,46 @@ public class CrudUsers : MonoBehaviour
     {
         if (Dark)
         {
+            contentUser.user.darkmode = false;
+            StartCoroutine(changeDarknessI());
             Dark = false;
             Crud.setDark(Dark);
+            LoginUsers.setDark(Dark);
             LoginUsers2.setDark(Dark);
             read();
         }
         else
         {
+            contentUser.user.darkmode = true;
+            StartCoroutine(changeDarknessI());
             Dark = true;
             Crud.setDark(Dark);
+            LoginUsers.setDark(Dark);
             LoginUsers2.setDark(Dark);
             read();
         }
     }
+
+    IEnumerator changeDarknessI()
+    {
+        var userUpdate = new LoginUsers.UserModel();
+        userUpdate.id = contentUser.user.id;
+        userUpdate.username = contentUser.user.username;
+        userUpdate.password = contentUser.user.password;
+        userUpdate.mail = contentUser.user.mail;
+        userUpdate.isAdmin = contentUser.user.isAdmin;
+        userUpdate.darkmode = contentUser.user.darkmode;
+        var json = JsonConvert.SerializeObject(userUpdate);
+        //var updateData = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
+        var byteArray = System.Text.Encoding.UTF8.GetBytes(json);
+        UnityWebRequest request = UnityWebRequest.Put("http://localhost:4000/api/users/" + userUpdate.id, byteArray);
+        request.SetRequestHeader("Content-Type", "application/json");
+        request.SetRequestHeader("Authorization", "Bearer " + contentUser.access_token);
+        request.downloadHandler = new DownloadHandlerBuffer();
+        yield return request.SendWebRequest();
+        userUpdate = null;
+    }
+
     public void create()
     {
         StartCoroutine(createI());

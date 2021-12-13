@@ -62,6 +62,9 @@ public class LoginUsers : MonoBehaviour
     {
         closeWindows();
         contentUser=LoginUsers2.getUser();
+        if(contentUser==null){
+            contentUser=Crud.getUser();
+        }
         if(contentUser != null){
             access_token = contentUser.access_token;
             Dark = contentUser.user.darkmode;
