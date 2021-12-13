@@ -17,10 +17,11 @@ Virtual reality project with nodejs and unity, still in development, soon finish
 To try the app use "npm install" if it's the first time, and "npm start" to run the backend. Don't forget the database.
 Then open the frontend in unity or try it in this page https://asoret.itch.io/advanced-reality
 
-## Prototype Screenshots:
+## Prototype vs Final Screenshots:
 
-![image](https://user-images.githubusercontent.com/81707462/141656906-a179c7f5-6d77-475d-b5f7-3ba98f5c7252.png)
-![image](https://user-images.githubusercontent.com/81707462/141656916-1599674c-5853-4569-a7fc-f1f87671d1f3.png)
+![prototipo 2](https://user-images.githubusercontent.com/81707462/145854130-f6971f6d-e28e-4879-84e0-f8e428d82a83.png)
+![prototipo](https://user-images.githubusercontent.com/81707462/145854321-72a765b7-d08f-4695-b35a-b73e09b540f4.png)
+
 
 
 
