@@ -107,21 +107,39 @@ available options, its easy to guess what you could find there.
 
 4-When the user starts to register, they will receive advices of what they are doing wrong.
 
+![image](https://user-images.githubusercontent.com/81707462/146048091-a37c777e-735c-47a7-8718-3ea82ec217f2.png)
+
 5-The app shows that the user is logged in, by changing the log in button, and showing the username of the user connected.
+
+![image](https://user-images.githubusercontent.com/81707462/146048601-535c6f11-3aa6-4888-a4a5-e6b309ef7efa.png)
 
 6-Other time when he tries the log in again, he will be informed of the mistakes, included if the user and password don't match
 
+![image](https://user-images.githubusercontent.com/81707462/146048897-b8d4b025-5b60-4cd9-95cb-e518fb793337.png)
+
 7-While logged in, the app gives some configuration to the user, by letting him change the email and password.
 
+![image](https://user-images.githubusercontent.com/81707462/146050095-dbc3b9c2-e283-4cf7-99fa-c934212917c1.png)
+
 8-Also deleting his account with a second chance to cancel it. Also for the admins when deleting data in the tables.
+
+![image](https://user-images.githubusercontent.com/81707462/146050239-670ac7de-275b-4a6d-b536-9eb92b663878.png)
 
 9-Guests can toggle the darkmode, but only users can save the prefered option, it loads automatically when logging in. This
 changes are visible in all the pages.
 
+![image](https://user-images.githubusercontent.com/81707462/146051202-ec2a1a06-b574-4a5c-b076-28945ad5ffe1.png)
+
 10-The users can send a message to staff, with some advices to notice the errors, and when it's successfully sent.
+
+![image](https://user-images.githubusercontent.com/81707462/146051705-349cfc2a-ed43-4f49-aeb2-2eacedaacd50.png)
 
 11-The virtual reality has a comfortable menu, you can open and close it with just one key. Which is shown to the users, also
 the hotspots and arrows to travel to other places have the right size and colors to be seen.
+
+![image](https://user-images.githubusercontent.com/81707462/146052053-9741b0fe-08c7-4b13-a827-3fb08db99d5a.png)
+
+
 
 
 ## Instructions
