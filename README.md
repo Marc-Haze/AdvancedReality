@@ -333,8 +333,19 @@ be the real challenge probably.
 
 ## Links and references
 
-Crud with player prefs (The first tutorial showed me how to make a table with crud forms, so useful): https://www.youtube.com/watch?v=zfoAKTVvfM8
-Tour with unity (The best videos to make a unity tour really easily, just takes some minutes): https://www.youtube.com/watch?v=hgRb7apZrCw
+Most of the backend of the app, with the login (The real savior of time, even that I don't use ionic here):
+
+https://github.com/tcrurav/Ionic5NodeAuthBasic
+
+Crud with player prefs (The first tutorial showed me how to make a table with crud forms, so useful): 
+
+https://www.youtube.com/watch?v=zfoAKTVvfM8
+
+Tour with unity (The best videos to make a unity tour really easily, just takes some minutes): 
+
+https://www.youtube.com/watch?v=hgRb7apZrCw
+
+
 
 
 
