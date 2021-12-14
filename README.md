@@ -1,9 +1,24 @@
 # AdvancedReality
-Virtual reality project with nodejs and unity, still in development, soon finished
+Virtual reality project with nodejs and unity.
 
 ![image](https://user-images.githubusercontent.com/81707462/141654892-327c44ef-7191-4d8a-b430-6216b25f9c03.png)
 
+## Description:
+
+In the future I have to make a virtual reality tour about Galdar's technologyc park, so I made this as a practise. This is for
+the company ITC(Instituto tecnológico de canarias), and the interesting part its adding to the apps they make a crud with sql.
+
+So the app will be a webpage which lets you watch some photos and 360 spaces of Lanzarote, with users that can register, login, make
+comments, and send messages to the staff. With other pleasant extras like the dark mode and user configuration. I have no idea about
+unity at the start of this project but the idea is learning to be ready for the next one.
+
 ## Database models:
+
+The first table is used for the login and register, of the users, also for the admins with the attribute "isAdmin", because the admin
+and the users can do things than the guests that doesn't log in. The user writes texts and reviews, so they are related, in the texts
+we save the user email apart from the id to know where to answer if needed, and in the reviews we save the username to show it in the
+reviews view, so other users can see it. Finally everyone can watch the images, they have an attribute called place to represent in which
+360 image they are allowed to be seen.
 
 ### E/R Model:
 
