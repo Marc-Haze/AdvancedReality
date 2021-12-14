@@ -147,8 +147,66 @@ the hotspots and arrows to travel to other places have the right size and colors
 
 ### Guide to install
 
-To try the app use "npm install" if it's the first time, and "npm start" to run the backend. Don't forget the database.
-Then open the frontend in unity or try it in this page https://asoret.itch.io/advanced-reality
+#### Managing the Sql Database
+
+After downloading the git repository, import the sql file to your sql manager. I use XAMPP to use the database.
+(Remember, some programs need you to create a database with the same name it is on the file, in this case..)
+
+    db_galdar_dev
+XAMPP link: https://www.apachefriends.org/es/download.html
+    
+![image](https://user-images.githubusercontent.com/81707462/146055064-ead5009b-997e-4e6e-b1ed-3c12d3f808e2.png)
+
+![image](https://user-images.githubusercontent.com/81707462/146054941-02dc53d1-50ad-4f93-8800-8a1627d3e409.png)
+
+#### Nodejs Backend
+
+Now you have to run the backend, with visual studio code open the backend folder in the terminal and execute the following
+code to get the necessary libraries (I don't upload them to make the file shorter). In order to do this you also need to install
+node js.
+
+visual studio code link: https://code.visualstudio.com/download
+node js link: https://nodejs.org/es/download/
+
+    npm install
+
+And when you have everything ready run it.
+
+    npm start
+
+If for some reason you don't have the sql server at the default port 3306, you can change it in this file.
+
+![image](https://user-images.githubusercontent.com/81707462/146056082-e2403dbe-8475-49ff-ab72-dd7f0cbb7f7d.png)
+
+If all went right you should see something like this in the terminal.
+
+![image](https://user-images.githubusercontent.com/81707462/146056321-1c8c212b-e2b8-42cf-b20d-200d3a7c846b.png)
+
+And this page for example should load (don't try with users, it's protected)
+
+![image](https://user-images.githubusercontent.com/81707462/146056451-06b8d96d-a137-407a-b44d-bc8f536cc5c1.png)
+
+#### Unity frontend
+
+In this point you have 2 choices, using the webpage already builded at this itch.io link. Or open the frontend folder in unity to try it with the editor.
+With the first way you can easily see the final product, and with unity search for all the details. (webgl has a lots of bugs, some of
+them like letters not appearing, I will try to fix it as far as I can)
+
+My app at itch.io link: https://asoret.itch.io/advanced-reality
+
+![image](https://user-images.githubusercontent.com/81707462/146057242-d1afebe3-58ef-4af4-ac8a-364996646118.png)
+
+
+With unity hub just click on the add option and select the folder, that's it
+
+![image](https://user-images.githubusercontent.com/81707462/146057173-34a65a87-d6c5-4a29-b02d-bb1d6510fd44.png)
+
+To try it (with the less ammount of bugs) press the play button in the main page scene.
+(You could build the project but it would be the same as using the link before, or build it like an exe app, would be
+the same as trying it in the unity editor)
+
+![image](https://user-images.githubusercontent.com/81707462/146057397-c9c2c210-8a20-4b84-8c08-4164b38592ad.png)
+
 
 ### User guide
 
