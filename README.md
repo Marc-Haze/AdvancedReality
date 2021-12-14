@@ -113,9 +113,9 @@ available options, its easy to guess what you could find there.
 
 ![image](https://user-images.githubusercontent.com/81707462/146048601-535c6f11-3aa6-4888-a4a5-e6b309ef7efa.png)
 
-6-Other time when he tries the log in again, he will be informed of the mistakes, included if the user and password don't match
+6-Other time when he tries the log in again, he will be informed of the mistakes, included if the user and password don't match.
 
-![image](https://user-images.githubusercontent.com/81707462/146048897-b8d4b025-5b60-4cd9-95cb-e518fb793337.png)
+![image](https://user-images.githubusercontent.com/81707462/146052826-6a5ff422-2dfa-4cef-82a4-bef86bd2b6f9.png)
 
 7-While logged in, the app gives some configuration to the user, by letting him change the email and password.
 
@@ -137,6 +137,7 @@ changes are visible in all the pages.
 11-The virtual reality has a comfortable menu, you can open and close it with just one key. Which is shown to the users, also
 the hotspots and arrows to travel to other places have the right size and colors to be seen.
 
+![image](https://user-images.githubusercontent.com/81707462/146052460-d3ea2631-837d-444b-9471-13d0ec504c72.png)
 ![image](https://user-images.githubusercontent.com/81707462/146052053-9741b0fe-08c7-4b13-a827-3fb08db99d5a.png)
 
 
