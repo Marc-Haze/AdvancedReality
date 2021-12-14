@@ -143,12 +143,30 @@ the hotspots and arrows to travel to other places have the right size and colors
 
 
 
-## Instructions
+## Handbook
+
+### Guide to install
 
 To try the app use "npm install" if it's the first time, and "npm start" to run the backend. Don't forget the database.
 Then open the frontend in unity or try it in this page https://asoret.itch.io/advanced-reality
 
+### User guide
 
+Breath
+
+## Technology stack
+
+Unity nodejs.
+
+## Technology comparison
+
+## Repositories
+
+## Planification
+
+## Conclusions, opinions and reflexions
+
+## Links and references
 
 
 
