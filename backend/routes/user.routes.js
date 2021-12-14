@@ -19,8 +19,8 @@ module.exports = app => {
     // Sign in
     router.post("/signin", auth.signin);
   
-    // // Delete a User with id
-    // router.delete("/:id", users.delete);
+    // Delete a User with id
+    router.delete("/:id", auth.isAuthenticated, users.delete);
   
     // // Create a new User
     // router.delete("/", users.deleteAll);

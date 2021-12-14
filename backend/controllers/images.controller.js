@@ -5,7 +5,7 @@ const Op = db.Sequelize.Op;
 // Create and Save a new Image
 exports.create = (req, res) => {
   // Validate request
-  if (!req.body.name || !req.body.fileName) {
+  if (!req.body.name || !req.body.fileName || !req.body.place) {
     res.status(400).send({
       message: "Content can not be empty!"
     });
@@ -16,7 +16,7 @@ exports.create = (req, res) => {
   const image = {
     name: req.body.name,
     fileName: req.body.fileName,
-    description: req.body.description
+    place: req.body.place
   };
 
   // Save Image in the database

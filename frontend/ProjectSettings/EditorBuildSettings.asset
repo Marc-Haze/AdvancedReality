@@ -8,16 +8,28 @@ EditorBuildSettings:
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: Assets/Scenes/LandPage.unity
+    guid: 3cff526fe16432a43acd0e17a47c0452
   - enabled: 1
     path: Assets/Scenes/MainPage.unity
     guid: b5ca376f59db17140bc5c4bc776a9a22
   - enabled: 1
-    path: Assets/Scenes/MobileTable.unity
-    guid: 8f4eebf047b21d945b6d1b9e584f5653
-  - enabled: 1
-    path: Assets/Scenes/TextsTable.unity
+    path: Assets/Scenes/ReviewsTable.unity
     guid: 62ab0654c0c207d4eb8bbaaf8487f019
   - enabled: 1
     path: Assets/Scenes/ImageTable.unity
     guid: 98a4915308696414b8909eddd9a643d2
-  m_configObjects: {}
+  - enabled: 1
+    path: Assets/Scenes/UserTable.unity
+    guid: cde1cf199914f8648b96b7b9171f7a94
+  - enabled: 1
+    path: Assets/Scenes/TextsTable.unity
+    guid: 99842d62dff3dec43bc193454eb809ee
+  - enabled: 1
+    path: Assets/Scenes/VirtualReality.unity
+    guid: d0cd6a591e704f543802ab5e0e73f147
+  m_configObjects:
+    com.unity.adaptiveperformance.loader_settings: {fileID: 11400000, guid: 97dd466670f9c1540994c88949fe9a61, type: 2}
+    com.unity.adaptiveperformance.samsung.android.provider_settings: {fileID: 11400000, guid: a3ed3c8b069a6df4e92a0b80ac142bfd, type: 2}
+    com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000, guid: ca8ba0839baed764c9511ca341ed85a8, type: 2}

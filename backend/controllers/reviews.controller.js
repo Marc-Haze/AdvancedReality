@@ -5,7 +5,7 @@ const Op = db.Sequelize.Op;
 // Create and Save a new Comment
 exports.create = (req, res) => {
   // Validate request
-  if (!req.body.name || !req.body.fileName || !req.body.target) {
+  if (!req.body.content || !req.body.username || !req.body.target) {
     res.status(400).send({
       message: "Content can not be empty!"
     });
@@ -15,8 +15,9 @@ exports.create = (req, res) => {
   // Create a Comment
   const review = {
     content: req.body.content,
-    mail: req.body.mail,
-    target: req.body.target
+    username: req.body.username,
+    target: req.body.target,
+    userId: req.body.userId
   };
 
   // Save Comments in the database

@@ -15,7 +15,8 @@ exports.create = (req, res) => {
   // Create a ContactMessages
   const text = {
     content: req.body.content,
-    mail: req.body.mail
+    mail: req.body.mail,
+    userId: req.body.userId
   };
 
   // Save ContactMessages in the database
