@@ -326,7 +326,7 @@ I planned to try the vr glasses in the app and addapting it, maybe try to let th
 
 Finally i'm proud of the final product, I see how low expectations I had in the prototype (which is normal not knowing how to use unity) but I made a lot without help.
 I admmit that some scripts like loginUsers has way to many text, I wanted to reduce it but it would take much time that I don't have right know, i'm sure that the next
-one I will be more clean.
+one I will be more clean. And some graphics of the app look blur or not hd, fonts too bold, I don't like how webgl builds up, hope I make that better too.
 
 Even that it was frustrating when things didn't work I really enjoyed learning unity, maybe we use it again in the real project and I will be ready. Teamwork is going to 
 be the real challenge probably.
