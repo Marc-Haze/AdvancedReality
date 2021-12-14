@@ -28,6 +28,43 @@ reviews view, so other users can see it. Finally everyone can watch the images, 
 
 ![image](https://user-images.githubusercontent.com/81707462/145825355-704f1baa-0291-4c36-abdf-1e7c1b6ec3ac.png)
 
+## User requirements:
+
+R1. Platform
+
+  R1.1. The app will be a web page
+  
+R2. Is going to be mostly what they do normally, but adding sql management
+
+R3. The users don't need to log in or register to access the app, but they will have less options
+
+R4. The app has a main menu, from there you can access to some options and one to go to the virtual reality
+
+  R4.1. Everyone can toggle the dark mode
+  
+  R4.1.1. Only the admins can access the full crud
+  
+  R4.1.2. If a user logs in, the dak mode value will be loaded, and it can be saved for future uses
+  
+  R4.1.3. The users can change their own email and password, only knowing the old one
+  
+  R4.1.4. The users can also erase their own account if they need it
+  
+  R4.1.5. A screen will pop up to ask again if they are sure about erasing it
+  
+  R4.2. The users can write and send a message to the staff if they are logged in
+  
+R5. The app has a virtual reality, in which the users can view all what the app mainly supplies
+
+  R5.1. Still everyone can toggle the dark mode
+  
+  R5.1.1. Everyone can watch the images and reviews
+  
+  R5.1.2. But only the users can write reviews
+  
+  R5.1.3. There will be some hot spots which the users can click and read some information
+  
+## Cases of use:
 
 To try the app use "npm install" if it's the first time, and "npm start" to run the backend. Don't forget the database.
 Then open the frontend in unity or try it in this page https://asoret.itch.io/advanced-reality
