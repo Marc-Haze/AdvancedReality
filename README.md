@@ -20,13 +20,12 @@ we save the user email apart from the id to know where to answer if needed, and 
 reviews view, so other users can see it. Finally everyone can watch the images, they have an attribute called place to represent in which
 360 image they are allowed to be seen.
 
+I will make it with XAMPP MySql.
+
 ### E/R Model:
 
 ![image](https://user-images.githubusercontent.com/81707462/145824780-522d8d45-c965-4ec5-9db3-066aa0b63d78.png)
 
-### UML Model:
-
-![image](https://user-images.githubusercontent.com/81707462/145825355-704f1baa-0291-4c36-abdf-1e7c1b6ec3ac.png)
 
 ## User requirements:
 
@@ -66,13 +65,40 @@ R5. The app has a virtual reality, in which the users can view all what the app 
   
 ## Cases of use:
 
-To try the app use "npm install" if it's the first time, and "npm start" to run the backend. Don't forget the database.
-Then open the frontend in unity or try it in this page https://asoret.itch.io/advanced-reality
+Like I said before, guests can watch reviews and images, but you need to be a logged in user to write reviews and messages. Only admins
+can manage and watch all the tables.
 
-## Prototype vs Final Screenshots:
+### UML Model:
+
+![image](https://user-images.githubusercontent.com/81707462/145825355-704f1baa-0291-4c36-abdf-1e7c1b6ec3ac.png)
+
+## Description of the operation of the system and technical specifications:
+
+The frontend made in unity which you can run as a webpage, uses a nodejs backend to manage and connect to the sql database. 
+
+Depending in the way you run the page you may need internet connection or not, In the way I show you will need it. Because it is
+a web page which lets you upload and host your unity webgl build.
+
+## Interfaces
+
+### Prototype:
+
+
+
+### Final Screenshots:
+
+
+
+### Prototype vs Final Screenshots:
 
 ![prototipo 2](https://user-images.githubusercontent.com/81707462/145854130-f6971f6d-e28e-4879-84e0-f8e428d82a83.png)
 ![prototipo](https://user-images.githubusercontent.com/81707462/145854321-72a765b7-d08f-4695-b35a-b73e09b540f4.png)
+
+## Instructions
+
+To try the app use "npm install" if it's the first time, and "npm start" to run the backend. Don't forget the database.
+Then open the frontend in unity or try it in this page https://asoret.itch.io/advanced-reality
+
 
 
 
