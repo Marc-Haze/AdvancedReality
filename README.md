@@ -165,8 +165,8 @@ Now you have to run the backend, with visual studio code open the backend folder
 code to get the necessary libraries (I don't upload them to make the file shorter). In order to do this you also need to install
 node js.
 
-visual studio code link: https://code.visualstudio.com/download
-node js link: https://nodejs.org/es/download/
+visual studio code link: https://code.visualstudio.com/download  I use the version 1.63.0
+node js link: https://nodejs.org/es/download/  I use the version 6.14.15
 
     npm install
 
@@ -199,6 +199,8 @@ My app at itch.io link: https://asoret.itch.io/advanced-reality
 
 With unity hub just click on the add option and select the folder, that's it
 
+Unity link: https://unity.com/es/download   I use the version 2020.3.24f1 (with the hub you can install most versions)
+
 ![image](https://user-images.githubusercontent.com/81707462/146057173-34a65a87-d6c5-4a29-b02d-bb1d6510fd44.png)
 
 To try it (with the less ammount of bugs) press the play button in the main page scene.
@@ -210,21 +212,129 @@ the same as trying it in the unity editor)
 
 ### User guide
 
-Breath
+Now a basic guide to use the app. (Even that most things are intuitive)
+
+#### Main Menu
+
+In the main menu you can do multiple things:
+
+##### Log in / Register
+
+Clicking the button log in, you can access to the log in and register form. This let you access to more options.
+(The app helps you in filling the forms correctly, I could name all these messages but I already did it in the usability, check it there)
+
+![image](https://user-images.githubusercontent.com/81707462/146058412-1bbd8a23-ce38-40eb-a213-811f58d21b97.png)
+
+After logging in or resgistering, you can press the new button in the same place to log out.
+
+![image](https://user-images.githubusercontent.com/81707462/146058658-8c8648c8-eaa0-4cb4-9a1f-be235fd69e13.png)
+
+##### Info
+
+You can see some info of the app, is drop and draggable just to try it.
+
+![image](https://user-images.githubusercontent.com/81707462/146059003-6fbff959-4d6f-498d-ac9d-b2e700e8e166.png)
+
+##### Contact
+
+The form to send a message to the staff, only ussable if you are logged in.
+
+![image](https://user-images.githubusercontent.com/81707462/146059248-f3f41841-3b4f-4125-b612-7e5c6fd8d11e.png)
+
+##### Admin Settings
+
+This button only shows up if the user is a admin. You can use the full crud of all the tables.
+
+![image](https://user-images.githubusercontent.com/81707462/146059955-e17017fe-5062-460a-97f9-2623d8911988.png)
+
+#### Virtual reality
+
+The main purpose of the app, also has multiple options:
+
+##### Map
+
+The page where you land at the start, you can choose which place you want to see, this affects the other options.
+
+![image](https://user-images.githubusercontent.com/81707462/146060748-cff35386-6678-4b7d-a124-bce2f8b10668.png)
+
+##### Images
+
+You can check some images of the place you chose on the map, it will be playa blanca by default.
+
+![image](https://user-images.githubusercontent.com/81707462/146060956-62d20cb9-6fb4-4980-b6b0-13b88727593b.png)
+
+##### Comments
+
+Here you can watch the comments of other users or make your own if you are logged in.
+
+![image](https://user-images.githubusercontent.com/81707462/146061072-6369f803-303e-4491-bafe-aa132bbe4c1b.png)
+
+##### 360 place
+
+And finally the most important place, and that I need to explain, you can move the camera holding the left click. But what
+you maybe don't expect it's that you can zoom by holding the right click and moving it up and down. To reset the zoom press the
+wheel button of the mouse. With Tab or clicking the small icon in the corner you can open the menu. The arrows and hotspots are self-exaplanatory.
+
+![image](https://user-images.githubusercontent.com/81707462/146061421-085711f7-7e45-4fcf-ad9e-efda038d751e.png)
+![image](https://user-images.githubusercontent.com/81707462/146061445-b68b7ebd-a97e-4dc4-be77-97233f05d893.png)
+
 
 ## Technology stack
 
-Unity nodejs.
+In this project I use unity version 2020.3.24f1, nodejs version 6.14.15 and XAMPP v3.3.0.
+
+I chose nodejs to have this in common with most classmates, in case we needed help. XAMPP because im so used to it but I think
+I will learn more about workbench as it seems more comfortable. Finally unity because it is great for 3d stuff.
+
+![image](https://user-images.githubusercontent.com/81707462/146062154-a3dbc028-1a53-4362-b24d-78ca47059117.png)
 
 ## Technology comparison
 
+At the start the company told us to use 3d vista, it's easier to make tours with it even without knowing how to script, but that wouldn't leave
+us the chance to make lots of things with code and sql. So I decided to take unity at the end, I love how much you can do there in a easy way more
+or less.
+
+![image](https://user-images.githubusercontent.com/81707462/146062094-ba11c223-5e08-467f-a6da-695a4a264319.png)
+
+
 ## Repositories
+
+I'm still new with github but this time I managed to use two branches, one for the develop of the app making tests and fixing mistakes, and the master one
+where I have the read and I merget with develop at the end. I know I can improve more with this but I'm satisfied with all the commits I did.
+
+![image](https://user-images.githubusercontent.com/81707462/146062444-1172a8a8-34d0-479b-b0c2-2d3c2670b06f.png)
+![image](https://user-images.githubusercontent.com/81707462/146062413-eec9ea69-4dd9-4078-8a20-33a5e242924a.png)
+
 
 ## Planification
 
+I didn't know anything about unity, but knew how to make the backend with nodejs. So the first day I finished the backend (but I made lot of changes to the table).
+What the company wanted for the project it was a mistery, so I was a little lost, despite of that I'm grateful that I decided to start making a 2d crud to have one of
+the most important things of the whole project (kinda the 60%). After weeks I finished the crud and the company gave us the idea to make a tour with a map, so it was time
+to progress.
+
+I finished the main page and was going to start the map to finally try the virtual reality but not really. The teacher remembered me that the app should be a webpage, and
+when I tried it all the crud operations broke.. had to take some days to replace half the code but I could at the end, because unity webgl doesn't support http client, you
+have to use unity web request. With some tutorials I learned a lot at the end and could finish the rest in a few days.
+
+But the problem that got me the most lost time is rendering/building the project in webgl. Lots of things break or bug out, also my mistake because teamviewer lagged some things
+making me think something was wrong with the app. I found a page that executes the build better itch.io, sadly there could be more errors like missing letters.
+
+I planned to try the vr glasses in the app and addapting it, maybe try to let the user upload photos. But I ran out of time with the video in the main page. (not loading, lagging etc)
+
 ## Conclusions, opinions and reflexions
 
+Finally i'm proud of the final product, I see how low expectations I had in the prototype (which is normal not knowing how to use unity) but I made a lot without help.
+I admmit that some scripts like loginUsers has way to many text, I wanted to reduce it but it would take much time that I don't have right know, i'm sure that the next
+one I will be more clean.
+
+Even that it was frustrating when things didn't work I really enjoyed learning unity, maybe we use it again in the real project and I will be ready. Teamwork is going to 
+be the real challenge probably.
+
 ## Links and references
+
+Crud with player prefs (The first tutorial showed me how to make a table with crud forms, so useful): https://www.youtube.com/watch?v=zfoAKTVvfM8
+Tour with unity (The best videos to make a unity tour really easily, just takes some minutes): https://www.youtube.com/watch?v=hgRb7apZrCw
 
 
 
