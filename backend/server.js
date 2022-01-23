@@ -7,7 +7,35 @@ const bodyParser = require('body-parser');
  
 const app = express();
 const port = process.env.PORT || 4000;
- 
+
+///////////////////////////////////////
+const WebSocket = require('ws')
+const wss = new WebSocket.Server({port: 8080},()=>{
+    console.log('server started')
+})
+
+wss.on('connection',(ws)=>{
+    ws.on('message',(data)=>{
+        console.log('data received: ' + data)
+        //const stringMessage = data.toString('utf-8').trim();
+        //ws.send(JSON.stringify(stringMessage))
+        //ws.send(data);
+        wss.broadcast(data);
+    })
+})
+
+wss.broadcast = function broadcast(msg){
+    wss.clients.forEach(function each(client){
+      client.send(msg);
+    });
+  };
+
+wss.on('listening',()=>{
+    console.log('server is listening on port 8080')
+}) 
+
+///////////////////////////////////////
+
 // enable CORS
 app.use(cors());
 

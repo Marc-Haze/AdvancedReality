@@ -6,7 +6,7 @@ module.exports = (sequelize, Sequelize) => {
         fileName: {
             type: Sequelize.STRING
         },
-        description: {
+        place: {
             type: Sequelize.STRING
         }
     });

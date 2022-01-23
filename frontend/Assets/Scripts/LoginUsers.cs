@@ -8,6 +8,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Newtonsoft.Json;
+using TMPro;
+//using NUnit.Framework;
 
 public class LoginUsers : MonoBehaviour
 {
@@ -56,7 +58,7 @@ public class LoginUsers : MonoBehaviour
 
     public GameObject form_login, txt_username, txt_mail, btn_settings, btn_login, btn_logout, btn_admin, login_error,
     form_register, register_error, contact_window, contact2_window, contact_success, password_window, password_error, user_settings, info,
-    email_window, email_error, delete_window, main_menu_white, main_menu_black;
+    email_window, email_error, delete_window, main_menu_white, main_menu_black, ip_input;
 
     void Start()
     {
@@ -93,6 +95,16 @@ public class LoginUsers : MonoBehaviour
         delete_window.SetActive(false);
     }
 
+    public static String ip="localhost";
+    public void changeIp(){
+        ip= ip_input.GetComponent<TMP_InputField>().text;
+        Debug.Log(ip);
+    }
+
+    public static String getIp(){
+        return ip;
+    }
+
     public void contact()
     {
         if (access_token != "")
@@ -104,6 +116,7 @@ public class LoginUsers : MonoBehaviour
             contact_window.SetActive(true);
         }
     }
+
     public void changePassword()
     {
         StartCoroutine(changePasswordI());
@@ -285,15 +298,6 @@ public class LoginUsers : MonoBehaviour
             request.SetRequestHeader("Content-Type", "application/x-www-form-urlencoded");
             request.SetRequestHeader("Authorization", "Basic " + encodedText);
             yield return request.SendWebRequest();
-            //Debug.Log(request.downloadHandler.text);
-
-            /*client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", encodedText);
-            client.DefaultRequestHeaders
-            .Accept
-            .Add(new MediaTypeWithQualityHeaderValue("application/x-www-form-urlencoded"));*/
-
-            //HttpResponseMessage response = await client.PostAsync("http://localhost:4000/api/users/signin", null);
-            //var responseString = await response.Content.ReadAsStringAsync();
 
             if (request.downloadHandler.text.StartsWith("{\"user\":{\"id\""))
             {
@@ -395,18 +399,6 @@ public class LoginUsers : MonoBehaviour
             form.AddField("username", user.username);
             form.AddField("password", user.password);
             form.AddField("mail", user.mail);
-            /*var byteArray = System.Text.Encoding.UTF8.GetBytes($"{user.username}:{user.password}");
-            string encodedText = Convert.ToBase64String(byteArray);
-            var json = JsonConvert.SerializeObject(user);
-            var data = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
-            using var client = new HttpClient();
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", encodedText);
-            client.DefaultRequestHeaders
-            .Accept
-            .Add(new MediaTypeWithQualityHeaderValue("application/x-www-form-urlencoded"));
-            HttpResponseMessage response = await client.PostAsync("http://localhost:4000/api/users", data);ç
-            var responseString = await response.Content.ReadAsStringAsync();*/
-            //Debug.Log(responseString);
             UnityWebRequest request = UnityWebRequest.Post("http://localhost:4000/api/users", form);
             request.downloadHandler = new DownloadHandlerBuffer();
             request.SetRequestHeader("Content-Type", "application/x-www-form-urlencoded");

@@ -18,7 +18,7 @@ public class Crud : MonoBehaviour
         public int id { get; set; }
         public string name { get; set; }
         public string fileName { get; set; }
-        public string description { get; set; }
+        public string place { get; set; }
         public DateTime createdAt { get; set; }
         public DateTime updatedAt { get; set; }
     }
@@ -82,7 +82,7 @@ public class Crud : MonoBehaviour
                 tmp_item.transform.GetChild(2).GetComponent<Text>().color = Color.white;
                 tmp_item.transform.GetChild(2).GetComponent<Text>().text = model.fileName;
                 tmp_item.transform.GetChild(3).GetComponent<Text>().color = Color.white;
-                tmp_item.transform.GetChild(3).GetComponent<Text>().text = model.description;
+                tmp_item.transform.GetChild(3).GetComponent<Text>().text = model.place;
             }
         }
         else
@@ -113,7 +113,7 @@ public class Crud : MonoBehaviour
                 tmp_item.transform.GetChild(2).GetComponent<Text>().color = Color.black;
                 tmp_item.transform.GetChild(2).GetComponent<Text>().text = model.fileName;
                 tmp_item.transform.GetChild(3).GetComponent<Text>().color = Color.black;
-                tmp_item.transform.GetChild(3).GetComponent<Text>().text = model.description;
+                tmp_item.transform.GetChild(3).GetComponent<Text>().text = model.place;
             }
         }
     }
@@ -170,11 +170,11 @@ public class Crud : MonoBehaviour
         var image = new ImageModel();
         image.name = form_create.transform.GetChild(1).GetComponent<InputField>().text;
         image.fileName = form_create.transform.GetChild(2).GetComponent<InputField>().text;
-        image.description = form_create.transform.GetChild(3).GetComponent<InputField>().text;
+        image.place = form_create.transform.GetChild(3).GetComponent<InputField>().text;
         WWWForm form = new WWWForm();
         form.AddField("name", image.name);
         form.AddField("fileName", image.fileName);
-        form.AddField("description", image.description);
+        form.AddField("place", image.place);
         UnityWebRequest request = UnityWebRequest.Post("http://localhost:4000/api/images",form);
         request.SetRequestHeader("Content-Type", "application/x-www-form-urlencoded");
         request.downloadHandler = new DownloadHandlerBuffer();
@@ -229,7 +229,7 @@ public class Crud : MonoBehaviour
         imageUpdate.id = int.Parse(idUpdate);
         imageUpdate.name = form_update.transform.GetChild(1).GetComponent<InputField>().text;
         imageUpdate.fileName = form_update.transform.GetChild(2).GetComponent<InputField>().text;
-        imageUpdate.description = form_update.transform.GetChild(3).GetComponent<InputField>().text;
+        imageUpdate.place = form_update.transform.GetChild(3).GetComponent<InputField>().text;
         var json = JsonConvert.SerializeObject(imageUpdate);
         //var updateData = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
         var byteArray = System.Text.Encoding.UTF8.GetBytes(json);

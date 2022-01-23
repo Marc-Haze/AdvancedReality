@@ -30,11 +30,15 @@ public class CameraController : MonoBehaviour
                 + Input.GetAxis("Mouse X") * Time.deltaTime * rotateSpeed, 0);
             }
 
-            if (Input.GetMouseButton(1) || Input.GetMouseButton(2))
+            if (Input.GetMouseButton(1))
             {
                 zoomAmount = Mathf.Clamp(zoomAmount + Input.GetAxis("Mouse Y") * Time.deltaTime
                 * zoomSpeed, -5.0f, 5.0f);
                 Camera.transform.GetComponent<Camera>().transform.localPosition = new Vector3(0, 0, zoomAmount);
+            }
+
+            if(Input.GetMouseButton(2)){
+                ResetZoom();
             }
         }
     }
@@ -42,8 +46,7 @@ public class CameraController : MonoBehaviour
     public void ResetCamera(){
         transform.localEulerAngles = new Vector3(0, 0, 0);
         zoomAmount = 0.0f;
-        Camera.transform.GetComponent<Camera>()
-        .transform.localPosition = new Vector3(0, 0, zoomAmount);
+        ResetZoom();
     }
     public void ResetZoom(){
         zoomAmount = 0.0f;

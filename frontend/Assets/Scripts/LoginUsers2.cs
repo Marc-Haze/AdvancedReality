@@ -10,6 +10,10 @@ using UnityEngine.UI;
 using UnityEngine.Networking;
 using Newtonsoft.Json;
 
+//using WebSocketSharp;
+using HybridWebSocket;
+using TMPro;
+
 public class LoginUsers2 : MonoBehaviour
 {
     public static string content;
@@ -19,8 +23,8 @@ public class LoginUsers2 : MonoBehaviour
     public static string access_token = "";
     public static string username = "";
     public static Boolean Dark = false;
-    public static LoginUsers.OverUserModel getUser(){ return contentUser; }
-    public static void setUser(LoginUsers.OverUserModel user){ contentUser = user; }
+    public static LoginUsers.OverUserModel getUser() { return contentUser; }
+    public static void setUser(LoginUsers.OverUserModel user) { contentUser = user; }
     public static string getUsername() { return username; }
     public static void setUsername(string usern) { username = usern; }
     public static Boolean getDark() { return Dark; }
@@ -30,29 +34,54 @@ public class LoginUsers2 : MonoBehaviour
     public int cuentaElegida = 0;
     public int cuentaMaxima = 0;
 
+    WebSocket ws;
+    string mensaje = "";
+    public static string recibido = "";
+
+    public string ip = "localhost";
 
     public GameObject form_login, txt_username, txt_mail, btn_settings, btn_login, btn_logout, login_error,
     form_register, register_error, password_window, password_error, user_settings,
     email_window, email_error, delete_window, main_menu_white, main_menu_black, places,
-    infoPlaya, infoArrecife, infoGraciosa, infoTimanfaya, itemParent, item, txt_place, 
-    comment_log, comment_write, scrollView, comments, images, txt_place_image, itemImage, itemParentImage;
+    infoPlaya, infoArrecife, infoGraciosa, infoTimanfaya, itemParent, item, txt_place,
+    comment_log, comment_write, scrollView, comments, images, txt_place_image, itemImage, itemParentImage,
+    chat_input, chat_parent, chat_child, chat, chatLog, chatWrite, chat_window;
 
     void Start()
     {
-        cuentaElegida=0;
+        cuentaElegida = 0;
         closeWindows();
         comments.SetActive(false);
         images.SetActive(false);
+        chat_window.SetActive(false);
         places.SetActive(true);
-        contentUser=LoginUsers.getUser();
-        if(contentUser != null){
+        contentUser = LoginUsers.getUser();
+        if (contentUser != null)
+        {
             access_token = contentUser.access_token;
             Dark = contentUser.user.darkmode;
-        }else{
+        }
+        else
+        {
             access_token = "";
         }
         isLoggedin();
         settingDarkness();
+        ip = LoginUsers.getIp();
+        ws = WebSocketFactory.CreateInstance("ws://" + ip + ":8080");
+        ws.OnMessage += (byte[] msg) =>
+        {
+            recibido = System.Text.Encoding.UTF8.GetString(msg);
+            Debug.Log(recibido);
+        };
+        ws.Connect();
+    }
+
+    public void AddText(string t)
+    {
+        GameObject tmp_item = Instantiate(chat_child, chat_parent.transform);
+        tmp_item.transform.GetChild(1).GetComponent<TMP_Text>().text = t;
+        chat_input.GetComponent<TMP_InputField>().text = "";
     }
 
     public void closeWindows()
@@ -68,67 +97,84 @@ public class LoginUsers2 : MonoBehaviour
         email_error.SetActive(false);
         delete_window.SetActive(false);
     }
-    public void destroyImages(){
-        for (int i = 0; i < itemParentImage.transform.childCount; i++){
+    public void destroyImages()
+    {
+        for (int i = 0; i < itemParentImage.transform.childCount; i++)
+        {
             Destroy(itemParentImage.transform.GetChild(i).gameObject);
         }
     }
-    public void readImages(){
+    public void readImages()
+    {
         StartCoroutine(readImagesI());
     }
-    IEnumerator readImagesI(){
-            
-            txt_place_image.GetComponent<Text>().text = TourManager.getPlace();
-            /*using var client = new HttpClient();
-            content = await client.GetStringAsync("http://localhost:4000/api/reviews");*/
-            UnityWebRequest request = new UnityWebRequest("http://localhost:4000/api/images", "GET");
-            request.downloadHandler = new DownloadHandlerBuffer();
-            yield return request.SendWebRequest();
-            Debug.Log(request.downloadHandler.text);
-            contentArrayImage = JsonConvert.DeserializeObject<List<Crud.ImageModel>>(request.downloadHandler.text);
-            //contentArrayImage.Reverse();
-            itemImage.SetActive(true);
-            foreach (Crud.ImageModel model in contentArrayImage)
+    IEnumerator readImagesI()
+    {
+
+        txt_place_image.GetComponent<Text>().text = TourManager.getPlace();
+        /*using var client = new HttpClient();
+        content = await client.GetStringAsync("http://localhost:4000/api/reviews");*/
+        UnityWebRequest request = new UnityWebRequest("http://localhost:4000/api/images", "GET");
+        request.downloadHandler = new DownloadHandlerBuffer();
+        yield return request.SendWebRequest();
+        Debug.Log(request.downloadHandler.text);
+        contentArrayImage = JsonConvert.DeserializeObject<List<Crud.ImageModel>>(request.downloadHandler.text);
+        //contentArrayImage.Reverse();
+        itemImage.SetActive(true);
+        foreach (Crud.ImageModel model in contentArrayImage)
+        {
+            if (model.place == TourManager.getPlace())
             {
-                if(model.description == TourManager.getPlace()){
-                    if(cuenta == cuentaElegida){
-                        
-                        GameObject tmp_item = Instantiate(itemImage, itemParentImage.transform);
-                        tmp_item.transform.GetComponent<Image>().sprite = Resources.Load<Sprite>(model.fileName); 
-                    }
-                    cuenta++;
+                if (cuenta == cuentaElegida)
+                {
+                    GameObject tmp_item = Instantiate(itemImage, itemParentImage.transform);
+                    tmp_item.transform.GetComponent<Image>().sprite = Resources.Load<Sprite>(model.fileName);
                 }
+                cuenta++;
             }
-            itemImage.SetActive(false);
-            cuentaMaxima = cuenta - 1;
-            cuenta = 0;
+        }
+        itemImage.SetActive(false);
+        cuentaMaxima = cuenta - 1;
+        cuenta = 0;
     }
 
-    public void imageNext(){
-        if(cuentaElegida == cuentaMaxima){
+    public void imageNext()
+    {
+        if (cuentaElegida == cuentaMaxima)
+        {
             cuentaElegida = 0;
-        }else{
+        }
+        else
+        {
             cuentaElegida++;
         }
         readImages();
     }
 
-    public void imageBefore(){
-        if(cuentaElegida == 0){
+    public void imageBefore()
+    {
+        if (cuentaElegida == 0)
+        {
             cuentaElegida = cuentaMaxima;
-        }else{
+        }
+        else
+        {
             cuentaElegida--;
         }
         readImages();
     }
 
-    public void read(){
+    public void read()
+    {
         StartCoroutine(readI());
     }
-    IEnumerator readI(){
-            txt_place.GetComponent<Text>().text= TourManager.getPlace();
-        if (Dark){
-            for (int i = 0; i < itemParent.transform.childCount; i++){
+    IEnumerator readI()
+    {
+        txt_place.GetComponent<Text>().text = TourManager.getPlace();
+        if (Dark)
+        {
+            for (int i = 0; i < itemParent.transform.childCount; i++)
+            {
                 Destroy(itemParent.transform.GetChild(i).gameObject);
             }
             /*using var client = new HttpClient();
@@ -138,8 +184,10 @@ public class LoginUsers2 : MonoBehaviour
             yield return request.SendWebRequest();
             contentArray = JsonConvert.DeserializeObject<List<CrudComments.ReviewModel>>(request.downloadHandler.text);
             contentArray.Reverse();
-            foreach (CrudComments.ReviewModel model in contentArray){
-                if(model.target == TourManager.getPlace()){
+            foreach (CrudComments.ReviewModel model in contentArray)
+            {
+                if (model.target == TourManager.getPlace())
+                {
                     GameObject tmp_item = Instantiate(item, itemParent.transform);
                     tmp_item.transform.GetChild(0).GetComponent<Image>().color = new Color32(52, 52, 55, 255);
                     tmp_item.transform.GetChild(1).GetComponent<Text>().text = model.username + " says:";
@@ -147,8 +195,11 @@ public class LoginUsers2 : MonoBehaviour
                     tmp_item.transform.GetChild(0).transform.GetChild(0).GetComponent<Text>().text = model.content;
                 }
             }
-        }else{
-            for (int i = 0; i < itemParent.transform.childCount; i++){
+        }
+        else
+        {
+            for (int i = 0; i < itemParent.transform.childCount; i++)
+            {
                 Destroy(itemParent.transform.GetChild(i).gameObject);
             }
             /*using var client = new HttpClient();
@@ -158,8 +209,10 @@ public class LoginUsers2 : MonoBehaviour
             yield return request.SendWebRequest();
             contentArray = JsonConvert.DeserializeObject<List<CrudComments.ReviewModel>>(request.downloadHandler.text);
             contentArray.Reverse();
-            foreach (CrudComments.ReviewModel model in contentArray){
-                if(model.target == TourManager.getPlace()){
+            foreach (CrudComments.ReviewModel model in contentArray)
+            {
+                if (model.target == TourManager.getPlace())
+                {
                     GameObject tmp_item = Instantiate(item, itemParent.transform);
                     tmp_item.transform.GetChild(0).GetComponent<Image>().color = new Color32(255, 255, 255, 255);
                     tmp_item.transform.GetChild(1).GetComponent<Text>().text = model.username + " says:";
@@ -170,10 +223,12 @@ public class LoginUsers2 : MonoBehaviour
         }
     }
 
-    public void createComment(){
+    public void createComment()
+    {
         StartCoroutine(createCommentI());
     }
-    IEnumerator createCommentI(){
+    IEnumerator createCommentI()
+    {
         var review = new CrudComments.ReviewModel();
         review.content = comment_write.transform.GetChild(0).transform.GetChild(2).GetComponent<InputField>().text;
         review.username = contentUser.user.username;
@@ -184,7 +239,7 @@ public class LoginUsers2 : MonoBehaviour
         form.AddField("username", review.username);
         form.AddField("target", review.target);
         form.AddField("userId", review.userId.ToString());
-        UnityWebRequest request = UnityWebRequest.Post("http://localhost:4000/api/reviews",form);
+        UnityWebRequest request = UnityWebRequest.Post("http://localhost:4000/api/reviews", form);
         request.SetRequestHeader("Content-Type", "application/x-www-form-urlencoded");
         request.downloadHandler = new DownloadHandlerBuffer();
         yield return request.SendWebRequest();
@@ -307,7 +362,7 @@ public class LoginUsers2 : MonoBehaviour
         logout();
         closeWindows();
     }
-    
+
     public void login()
     {
         StartCoroutine(loginI());
@@ -377,6 +432,8 @@ public class LoginUsers2 : MonoBehaviour
             txt_username.GetComponent<Text>().text = username;
             txt_mail.GetComponent<Text>().text = contentUser.user.mail;
             email_window.transform.GetChild(1).GetComponent<InputField>().text = txt_mail.GetComponent<Text>().text;
+            chatLog.SetActive(false);
+            chatWrite.SetActive(true);
             btn_settings.SetActive(true);
             btn_logout.SetActive(true);
             btn_login.SetActive(false);
@@ -396,6 +453,8 @@ public class LoginUsers2 : MonoBehaviour
         LoginUsers.setUser(contentUser);
         access_token = "";
         closeWindows();
+        chatLog.SetActive(true);
+        chatWrite.SetActive(false);
         btn_logout.SetActive(false);
         btn_login.SetActive(true);
         comment_log.SetActive(true);
@@ -632,15 +691,52 @@ public class LoginUsers2 : MonoBehaviour
         }
     }
 
+    public void buttonChat()
+    {
+        mensaje = "<color=blue>" + contentUser.user.username + ": </color>" + chat_input.GetComponent<TMP_InputField>().text;
+        if (chat_input.GetComponent<TMP_InputField>().text.Trim().Length > 0)
+        {
+            //ws.Send(mensaje);
+            ws.Send(System.Text.Encoding.UTF8.GetBytes(mensaje));
+        }
+        else
+        {
+            chat_input.GetComponent<TMP_InputField>().text = "";
+        }
+    }
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            destroyImages();
+            read();
+            readImages();
+            cuentaElegida = 0;
+            cuentaMaxima = 0;
+        }
+        if (ws == null)
+        {
+            return;
+        }
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+            mensaje = "<color=blue>" + contentUser.user.username + ": </color>" + chat_input.GetComponent<TMP_InputField>().text;
+            if (chat_input.GetComponent<TMP_InputField>().text.Trim().Length > 0)
             {
-                destroyImages();
-                read();
-                readImages();
-                cuentaElegida=0;
-                cuentaMaxima=0;
+                ws.Send(System.Text.Encoding.UTF8.GetBytes(mensaje));
             }
+            else
+            {
+                chat_input.GetComponent<TMP_InputField>().text = "";
+            }
+        }
+        if (recibido != "")
+        {
+            AddText(recibido);
+            Debug.Log("Se recibió un mensaje: " + recibido);
+            recibido = "";
+        }
+        chat.GetComponent<ScrollRect>().verticalNormalizedPosition = 0;
     }
 }
