@@ -9,6 +9,7 @@ const app = express();
 const port = process.env.PORT || 4000;
 
 ///////////////////////////////////////
+<<<<<<< HEAD
 const jsreport = require('jsreport')()
 
 if (process.env.JSREPORT_CLI) {
@@ -25,6 +26,8 @@ if (process.env.JSREPORT_CLI) {
 }
 
 ///////////////////////////////////////
+=======
+>>>>>>> 443183f307e24a099bf2c14d3d3f283ac72ae89b
 const WebSocket = require('ws')
 const wss = new WebSocket.Server({port: 8080},()=>{
     console.log('server started')
@@ -33,6 +36,12 @@ const wss = new WebSocket.Server({port: 8080},()=>{
 wss.on('connection',(ws)=>{
     ws.on('message',(data)=>{
         console.log('data received: ' + data)
+<<<<<<< HEAD
+=======
+        //const stringMessage = data.toString('utf-8').trim();
+        //ws.send(JSON.stringify(stringMessage))
+        //ws.send(data);
+>>>>>>> 443183f307e24a099bf2c14d3d3f283ac72ae89b
         wss.broadcast(data);
     })
 })
