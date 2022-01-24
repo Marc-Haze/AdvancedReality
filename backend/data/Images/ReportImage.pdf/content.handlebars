@@ -1,0 +1,51 @@
+<html>
+
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/metro/4.1.5/css/metro.min.css">
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js'></script>
+</head>
+
+<body>
+    <br></br>
+    <img src="https://user-images.githubusercontent.com/81707462/141654892-327c44ef-7191-4d8a-b430-6216b25f9c03.png
+        " width="360" height="345" style="margin-left:230px;margin-bottom:-200px">
+
+    <canvas style="margin-bottom:30px"></canvas>
+    <br></br>
+    <p align="center" style="color:blue">
+        <b>Showing all images</b>
+    </p>
+    <p id="date" align="center" style="margin-bottom:-30px"></p>
+    <br></br>
+    <table class='table striped'>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Filename</th>
+                <th>Place</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each images}}
+            <tr>
+                <td>{{name}}</td>
+                <td>{{fileName}}</td>
+                <td>{{place}}</td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+
+    <script>
+            n =  new Date();
+            y = n.getFullYear();
+            m = n.getMonth() + 1;
+            d = n.getDate();
+            document.getElementById("date").innerHTML = m + "/" + d + "/" + y;
+        </script>
+    <div style='page-break-after: always;'>
+    </div>
+</body>
+
+</html>

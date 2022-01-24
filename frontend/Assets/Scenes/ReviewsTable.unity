@@ -1454,7 +1454,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Mail
+  m_Text: Username
 --- !u!222 &392665417
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2060,7 +2060,7 @@ GameObject:
   - component: {fileID: 566816754}
   - component: {fileID: 566816753}
   m_Layer: 5
-  m_Name: InputMail
+  m_Name: InputUsername
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2203,7 +2203,7 @@ GameObject:
   - component: {fileID: 577375590}
   - component: {fileID: 577375589}
   m_Layer: 5
-  m_Name: InputMail
+  m_Name: InputUsername
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3142,7 +3142,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Enter the mail...
+  m_Text: Enter the username...
 --- !u!222 &700434107
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5646,7 +5646,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Enter the file name...
+  m_Text: Enter the username...
 --- !u!222 &1545327546
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6347,6 +6347,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0b121d746244e74b9516d9056c28184, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  second: 0
 --- !u!224 &1658377169
 RectTransform:
   m_ObjectHideFlags: 0

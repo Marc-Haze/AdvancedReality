@@ -7,7 +7,48 @@ const bodyParser = require('body-parser');
  
 const app = express();
 const port = process.env.PORT || 4000;
- 
+
+///////////////////////////////////////
+const jsreport = require('jsreport')()
+
+if (process.env.JSREPORT_CLI) {
+  // export jsreport instance to make it possible to use jsreport-cli
+  module.exports = jsreport
+} else {
+  jsreport.init().then(() => {
+    // running
+  }).catch((e) => {
+    // error during startup
+    console.error(e.stack)
+    process.exit(1)
+  })
+}
+
+///////////////////////////////////////
+const WebSocket = require('ws')
+const wss = new WebSocket.Server({port: 8080},()=>{
+    console.log('server started')
+})
+
+wss.on('connection',(ws)=>{
+    ws.on('message',(data)=>{
+        console.log('data received: ' + data)
+        wss.broadcast(data);
+    })
+})
+
+wss.broadcast = function broadcast(msg){
+    wss.clients.forEach(function each(client){
+      client.send(msg);
+    });
+  };
+
+wss.on('listening',()=>{
+    console.log('server is listening on port 8080')
+}) 
+
+///////////////////////////////////////
+
 // enable CORS
 app.use(cors());
 
