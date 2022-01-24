@@ -249,7 +249,7 @@ public class Crud : MonoBehaviour
     void Update()
     {
         if(Input.GetKeyDown(KeyCode.Tab)){
-            OpenURLInExternalWindow("http://localhost:5488/studio/templates/u8IpPdSNti");
+            OpenURLInExternalWindow("http://localhost:5488/templates/ImagesReport.pdf");
         }
     }
 }

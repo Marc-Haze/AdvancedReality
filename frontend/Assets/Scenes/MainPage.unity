@@ -8795,11 +8795,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-<<<<<<< HEAD
   m_IsActive: 0
-=======
-  m_IsActive: 1
->>>>>>> 443183f307e24a099bf2c14d3d3f283ac72ae89b
 --- !u!224 &1071222816
 RectTransform:
   m_ObjectHideFlags: 0
